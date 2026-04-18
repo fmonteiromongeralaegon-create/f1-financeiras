@@ -3,13 +3,17 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: API specification for F1 Soluções Financeiras
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: leads
+    description: Lead capture operations
+  - name: contact
+    description: Contact form operations
 paths:
   /healthz:
     get:
@@ -24,6 +28,69 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /leads:
+    post:
+      operationId: submitLead
+      tags: [leads]
+      summary: Submit a new lead
+      description: Capture a potential customer lead from the website form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitLeadBody"
+      responses:
+        "201":
+          description: Lead submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeadResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /leads/stats:
+    get:
+      operationId: getLeadsStats
+      tags: [leads]
+      summary: Get lead statistics
+      description: Returns aggregated lead statistics
+      responses:
+        "200":
+          description: Lead statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeadsStats"
+  /contact:
+    post:
+      operationId: submitContact
+      tags: [contact]
+      summary: Submit a contact message
+      description: Submit a contact/inquiry form message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitContactBody"
+      responses:
+        "201":
+          description: Contact message submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +100,99 @@ components:
           type: string
       required:
         - status
-
+    SubmitLeadBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        cpf:
+          type: ["string", "null"]
+        licensePlate:
+          type: ["string", "null"]
+        vehiclePaid:
+          type: ["boolean", "null"]
+        vehicleInOwnerName:
+          type: ["boolean", "null"]
+        hasIncome:
+          type: ["boolean", "null"]
+        consentLgpd:
+          type: boolean
+        source:
+          type: ["string", "null"]
+      required:
+        - name
+        - email
+        - phone
+        - consentLgpd
+    LeadResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+      required:
+        - id
+        - message
+    LeadsStats:
+      type: object
+      properties:
+        total:
+          type: integer
+        today:
+          type: integer
+        thisWeek:
+          type: integer
+        thisMonth:
+          type: integer
+      required:
+        - total
+        - today
+        - thisWeek
+        - thisMonth
+    SubmitContactBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        email:
+          type: string
+          format: email
+        phone:
+          type: ["string", "null"]
+        subject:
+          type: string
+        message:
+          type: string
+        consentLgpd:
+          type: boolean
+      required:
+        - name
+        - email
+        - subject
+        - message
+        - consentLgpd
+    ContactResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+      required:
+        - id
+        - message
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
