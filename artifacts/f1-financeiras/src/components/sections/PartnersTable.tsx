@@ -1,22 +1,60 @@
+import { motion } from "framer-motion";
+import { CheckCircle2 } from "lucide-react";
+import { PARTNERS } from "@/lib/company";
+
 export function PartnersTable() {
   return (
-    <section className="py-20 border-t border-b bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
-            Apoiado por instituições de confiança
+    <section className="py-16 lg:py-24 section-alt">
+      <div className="container-f1">
+        <div className="max-w-2xl mx-auto text-center mb-12">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[hsl(268,63%,46%)]/10 px-3 py-1.5 text-xs font-medium text-[hsl(268,63%,40%)]">
+            Nossos parceiros
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-[hsl(221,72%,14%)] mt-4">
+            Instituições <span className="brand-gradient-text">sólidas e reguladas</span> cuidando do seu crédito
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Trabalhamos apenas com bancos e financeiras regulamentadas pelo Banco Central do Brasil.
+          <p className="mt-3 text-[hsl(221,15%,40%)]">
+            Trabalhamos apenas com bancos e financeiras autorizados pelo
+            Banco Central do Brasil. Abaixo, o que torna cada um deles uma
+            referência no mercado.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-70 grayscale transition-all hover:grayscale-0">
-          <img src="/images/partner-porto.png" alt="Porto Bank" className="h-12 md:h-16 object-contain" />
-          <img src="/images/partner-bv.png" alt="Banco BV" className="h-12 md:h-16 object-contain" />
-          <img src="/images/partner-c6.png" alt="C6 Bank" className="h-12 md:h-16 object-contain" />
-          <img src="/images/partner-creditas.png" alt="Creditas" className="h-10 md:h-14 object-contain" />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {PARTNERS.map((p, i) => (
+            <motion.div
+              key={p.slug}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.05 }}
+              className="rounded-xl bg-white p-6 shadow-card hover:shadow-card-lg transition-shadow flex flex-col"
+            >
+              <div className="relative h-12 w-40 mb-4">
+                <img
+                  src={p.logo}
+                  alt={`Logo ${p.name}`}
+                  className="object-contain object-left h-full w-full"
+                />
+              </div>
+              <p className="text-sm text-[hsl(221,15%,35%)] leading-relaxed mb-4">{p.note}</p>
+              <ul className="mt-auto space-y-2 text-sm text-[hsl(221,15%,25%)]">
+                {p.strengths.map((s) => (
+                  <li key={s} className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(268,63%,46%)] shrink-0" />
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
+
+        <p className="text-xs text-[hsl(221,15%,50%)] text-center mt-6 max-w-2xl mx-auto">
+          A F1 Soluções Financeiras atua como correspondente bancário (Res. CMN
+          3.954/2011), intermediando a relação entre você e as instituições
+          parceiras reguladas pelo Banco Central do Brasil.
+        </p>
       </div>
     </section>
   );

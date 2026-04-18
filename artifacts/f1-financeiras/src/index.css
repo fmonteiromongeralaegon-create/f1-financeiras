@@ -138,11 +138,71 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  html { scroll-behavior: smooth; }
+  * { border-color: hsl(var(--border)); }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  ::selection {
+    background-color: hsl(var(--accent) / 0.2);
+    color: hsl(var(--accent));
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background-color: transparent; }
+  ::-webkit-scrollbar-thumb { background-color: hsl(var(--border)); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--muted-foreground) / 0.5); }
+}
+
+@layer utilities {
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .container-f1 {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-f1 { padding-left: 2rem; padding-right: 2rem; }
   }
 
-  body {
-    @apply font-sans antialiased bg-background text-foreground;
+  .hero-gradient {
+    background:
+      radial-gradient(ellipse 70% 50% at 10% 10%, hsl(268 63% 46% / 0.18), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 95% 0%, hsl(293 67% 49% / 0.15), transparent 60%),
+      linear-gradient(180deg, hsl(221 72% 10%) 0%, hsl(221 72% 14%) 100%);
+  }
+
+  .section-alt {
+    background-color: hsl(222 30% 97.5%);
+  }
+
+  .brand-gradient-text {
+    background: linear-gradient(135deg, hsl(268 63% 56%) 0%, hsl(293 67% 55%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .brand-gradient-bg {
+    background: linear-gradient(135deg, hsl(268 63% 46%) 0%, hsl(293 67% 49%) 100%);
+  }
+
+  .brand-gradient-bg-soft {
+    background: linear-gradient(135deg, hsl(268 63% 46% / 0.08) 0%, hsl(293 67% 49% / 0.08) 100%);
+  }
+
+  .shadow-card {
+    box-shadow: 0 4px 10px -2px rgb(11 27 59 / 0.08), 0 2px 4px -2px rgb(11 27 59 / 0.05);
+  }
+  .shadow-card-lg {
+    box-shadow: 0 16px 40px -8px rgb(11 27 59 / 0.12), 0 4px 12px -4px rgb(11 27 59 / 0.06);
   }
 }

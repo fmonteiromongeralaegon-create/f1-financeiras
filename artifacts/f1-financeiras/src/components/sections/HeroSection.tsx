@@ -1,63 +1,103 @@
+import { motion } from "framer-motion";
+import { ShieldCheck, Landmark, CheckCircle2, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2 } from "lucide-react";
+import { Link } from "wouter";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-background pt-16 md:pt-24 pb-20 lg:pt-32 lg:pb-28">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-      <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-20 blur-[100px]"></div>
-      
-      <div className="container relative mx-auto px-4">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center rounded-full border bg-background px-3 py-1 text-sm font-medium mb-6 text-muted-foreground">
-            <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-            Simulação em menos de 3 minutos
-          </div>
-          
-          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl mb-6 text-foreground">
-            Use seu carro como garantia e pegue dinheiro com as <span className="text-primary">melhores taxas</span> do mercado.
-          </h1>
-          
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            A F1 compara seu perfil em Porto Bank, Banco BV, C6 Bank e Creditas simultaneamente. Sem sair de casa e sem pagar nada adiantado.
-          </p>
+    <section className="relative overflow-hidden hero-gradient text-white">
+      <div className="container-f1 py-16 lg:py-24 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-10 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-7"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur">
+              <Car className="h-3.5 w-3.5 text-[hsl(293,67%,75%)]" />
+              Empréstimo com veículo em garantia
+            </span>
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mt-4">
+              Use seu carro como garantia e pegue dinheiro com as{" "}
+              <span className="brand-gradient-text">melhores taxas</span> do mercado.
+            </h1>
+            <p className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
+              A F1 compara o seu perfil em{" "}
+              <strong className="text-white">Porto Bank, Banco BV, C6 Bank e Creditas</strong>{" "}
+              simultaneamente e apresenta a melhor proposta de empréstimo com
+              garantia do seu veículo. Sem custo inicial e sem compromisso.
+            </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base shadow-lg shadow-primary/25" asChild>
-              <a href="#simular" data-testid="button-hero-simular">
-                Simular gratuitamente
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-8 text-base border-primary/20 hover:bg-primary/5" asChild>
-              <a href="https://wa.me/5516988602882" target="_blank" rel="noopener noreferrer" data-testid="button-hero-whatsapp">
-                Falar no WhatsApp
-              </a>
-            </Button>
-          </div>
+            <ul className="mt-6 space-y-2.5 text-sm text-white/85">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
+                Taxas a partir de <strong className="text-white">1,44% a.m.</strong>, sujeito à análise de crédito
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
+                Prazos de <strong className="text-white">12 a 60 meses</strong> com liberação em até 120% do valor do veículo
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
+                Aceita carros, SUVs e utilitários com até 19 anos de fabricação
+              </li>
+            </ul>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left border rounded-2xl p-6 bg-card/50 backdrop-blur-sm shadow-sm">
-            <div className="flex flex-col gap-1">
-              <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                <CheckCircle2 className="h-4 w-4 text-green-500" />
-                Taxas menores
-              </span>
-              <span className="text-xs text-muted-foreground pl-6">A partir de 1,44% a.m.</span>
+            <div className="mt-7 flex flex-col sm:flex-row gap-3">
+              <Button
+                asChild
+                size="lg"
+                className="bg-[hsl(293,67%,49%)] hover:bg-[hsl(293,67%,44%)] text-white font-semibold"
+              >
+                <a href="#simular" data-testid="button-hero-simular">Simular gratuitamente</a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white"
+              >
+                <Link href="/como-funciona">Como funciona</Link>
+              </Button>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                <CheckCircle2 className="h-4 w-4 text-green-500" />
-                Prazos longos
-              </span>
-              <span className="text-xs text-muted-foreground pl-6">De 12 a 60 meses para pagar</span>
+
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/60">
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Correspondente bancário (Res. 3.954/2011)
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Landmark className="h-3.5 w-3.5" />
+                Parceiros regulados pelo Banco Central
+              </div>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                <CheckCircle2 className="h-4 w-4 text-green-500" />
-                Ampla aceitação
-              </span>
-              <span className="text-xs text-muted-foreground pl-6">Carros e SUVs até 19 anos</span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="lg:col-span-5 hidden lg:block"
+          >
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
+              <img
+                src="/images/hero-car-keys.jpg"
+                alt="Chaves de carro — empréstimo com garantia de veículo"
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(221,72%,10%)]/40 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+                <div className="flex items-center justify-between text-white text-sm font-medium">
+                  <span>Simulação em 1 minuto</span>
+                  <span className="text-[hsl(293,67%,75%)]">Gratuita ✓</span>
+                </div>
+                <div className="mt-2 h-1.5 rounded-full bg-white/20 overflow-hidden">
+                  <div className="h-full w-3/4 rounded-full brand-gradient-bg" />
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

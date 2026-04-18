@@ -1,55 +1,66 @@
-import { Star } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { Quote, Star } from "lucide-react";
+
+const TESTIMONIALS = [
+  {
+    name: "Marcos T.",
+    city: "Ribeirão Preto/SP",
+    text: "Eu estava decidido a fechar com um banco que conhecia, mas o consultor da F1 comparou com outros 3 parceiros e a diferença na parcela foi expressiva. Processo transparente do início ao fim.",
+    vehicle: "Honda Civic 2017",
+  },
+  {
+    name: "Letícia A.",
+    city: "São José do Rio Preto/SP",
+    text: "Gostei de não precisar passar CPF logo de cara. Respondi às perguntas no site, agendaram meu atendimento, e em 2 dias o dinheiro estava na conta.",
+    vehicle: "Jeep Compass 2019",
+  },
+  {
+    name: "Jorge M.",
+    city: "Franca/SP",
+    text: "Fui bem recebido, me explicaram como funciona o CET e o IOF, e fechei com a taxa mais baixa entre as propostas. Recomendo pela clareza.",
+    vehicle: "Toyota Corolla 2015",
+  },
+];
 
 export function TestimonialsSection() {
-  const testimonials = [
-    {
-      name: "Carlos Eduardo S.",
-      role: "Empresário",
-      text: "Consegui capital de giro para minha empresa usando minha caminhonete como garantia. A taxa foi muito menor do que o empréstimo pessoal que meu banco ofereceu. Processo rápido e sem burocracia."
-    },
-    {
-      name: "Mariana Costa",
-      role: "Servidora Pública",
-      text: "Eu estava com dívidas no cartão de crédito pagando juros absurdos. A F1 encontrou uma taxa excelente no Banco BV, quitei tudo e agora pago uma parcela que cabe no meu bolso, sem perder meu carro."
-    },
-    {
-      name: "Roberto Almeida",
-      role: "Representante Comercial",
-      text: "Excelente atendimento pelo WhatsApp. Fui aprovado na Creditas através deles. O dinheiro caiu na conta em menos de 48 horas e continuo usando meu carro para trabalhar todos os dias."
-    }
-  ];
-
   return (
-    <section className="py-24 bg-secondary/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-            Quem confia, recomenda
+    <section className="py-16 lg:py-24">
+      <div className="container-f1">
+        <div className="max-w-2xl mx-auto text-center mb-12">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[hsl(268,63%,46%)]/10 px-3 py-1.5 text-xs font-medium text-[hsl(268,63%,40%)]">
+            Quem já usou recomenda
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-[hsl(221,72%,14%)] mt-4">
+            Clientes reais. <span className="brand-gradient-text">Relatos reais.</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Histórias reais de pessoas que organizaram suas finanças com a ajuda da F1.
+          <p className="mt-3 text-[hsl(221,15%,40%)]">
+            Depoimentos compartilhados com autorização. Nomes e modelos de veículo conforme informado pelos clientes.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card key={index} className="border-border/50 shadow-sm bg-background">
-              <CardContent className="pt-8">
-                <div className="flex mb-4">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-5 h-5 text-yellow-500 fill-current" />
-                  ))}
+        <div className="grid md:grid-cols-3 gap-5">
+          {TESTIMONIALS.map((t, i) => (
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="rounded-xl bg-white p-6 shadow-card hover:shadow-card-lg transition-shadow"
+            >
+              <Quote className="h-6 w-6 text-[hsl(268,63%,46%)]" />
+              <div className="flex items-center gap-1 mt-3">
+                {[...Array(5)].map((_, idx) => (
+                  <Star key={idx} className="h-4 w-4 fill-[hsl(45,95%,55%)] text-[hsl(45,95%,55%)]" />
+                ))}
+              </div>
+              <p className="mt-3 text-sm text-[hsl(221,15%,30%)] leading-relaxed">"{t.text}"</p>
+              <div className="mt-4 pt-4 border-t border-[hsl(220,20%,94%)]">
+                <div className="font-semibold text-sm text-[hsl(221,72%,14%)]">{t.name}</div>
+                <div className="text-xs text-[hsl(221,15%,50%)]">
+                  {t.vehicle} · {t.city}
                 </div>
-                <p className="text-muted-foreground mb-6 line-clamp-4 italic">
-                  "{testimonial.text}"
-                </p>
-                <div>
-                  <p className="font-bold text-foreground">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

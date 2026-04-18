@@ -1,7 +1,14 @@
+import { ShieldCheck } from "lucide-react";
+
 export function ComplianceBar() {
   return (
-    <div className="bg-primary/5 border-b border-primary/10 text-xs text-center py-2 px-4 text-primary/80 font-medium">
-      F1 Soluções Financeiras atua como correspondente bancário. Empréstimo sujeito à análise de crédito. TAE máxima: 42% a.a. (3,47% a.m.)
+    <div className="bg-[hsl(221,72%,10%)] text-white text-xs sm:text-sm">
+      <div className="container-f1 flex items-center justify-center gap-2 py-2 text-center">
+        <ShieldCheck className="h-3.5 w-3.5 text-[hsl(293,67%,65%)] shrink-0" />
+        <span className="opacity-90">
+          Correspondente bancário (Res. CMN 3.954/2011) · Não cobramos pagamento antecipado · TAE máxima: 42% a.a. (3,47% a.m.)
+        </span>
+      </div>
     </div>
   );
 }
