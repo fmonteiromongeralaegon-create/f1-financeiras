@@ -25,7 +25,7 @@ export default function ComoFunciona() {
         </div>
         <HowItWorksSection />
         <EligibilityQuiz />
-        <FaqSection />
+        <FaqSection fullPage />
       </main>
       <SiteFooter />
       <WhatsAppButton />

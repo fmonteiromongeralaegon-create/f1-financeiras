@@ -22,7 +22,7 @@ export default function FaqPage() {
             </p>
           </div>
         </div>
-        <FaqSection hideHeader />
+        <FaqSection fullPage />
         <EligibilityQuiz />
       </main>
       <SiteFooter />
