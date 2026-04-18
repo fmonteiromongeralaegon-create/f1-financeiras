@@ -82,6 +82,8 @@ export const COMPLIANCE = {
   maxTAE: '42% ao ano (3,47% a.m.) — referência Banco BV',
   example:
     'Exemplo representativo: empréstimo de R$ 30.000,00 em 48 parcelas de R$ 890,00. Taxa Anual Efetiva (TAE) de 42% a.a. e CET (Custo Efetivo Total) de 45% a.a. Valor total pago: R$ 42.720,00. Sujeito à análise de crédito do parceiro. IOF, tarifas e impostos já incluídos no CET.',
+  terms:
+    'Prazo de reembolso: 12 até 60 meses. Taxa Anual Efetiva (TAE) máxima: 42% ao ano (3,47% a.m.) — referência Banco BV. As taxas e condições efetivamente aplicadas são definidas pela instituição parceira e sujeitas à análise de crédito. A F1 Soluções Financeiras não cobra taxas antecipadas dos clientes.',
   bacen:
     'A F1 Soluções Financeiras atua como correspondente bancário nos termos da Resolução CMN nº 3.954/2011, intermediando serviços financeiros entre o cliente e as instituições parceiras. Não somos uma instituição financeira.',
 }
