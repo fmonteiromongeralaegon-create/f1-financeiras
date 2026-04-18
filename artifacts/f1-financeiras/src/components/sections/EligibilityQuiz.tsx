@@ -1,16 +1,16 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { maskCpf, maskPhone, maskPlate, validateCpf } from "@/lib/masks";
 import { useSubmitLead } from "@workspace/api-client-react";
 import { Link } from "wouter";
-import { CheckCircle2, ChevronRight, AlertCircle, XCircle } from "lucide-react";
+import { CheckCircle2, ChevronRight, AlertCircle, RefreshCw, MessageCircle } from "lucide-react";
 
 const leadFormSchema = z.object({
   name: z.string().min(2, "Nome é obrigatório"),
@@ -23,8 +23,36 @@ const leadFormSchema = z.object({
   }),
 });
 
+type QuizStep = 0 | 1 | 2 | 3 | 4;
+
+const QUESTIONS = [
+  {
+    key: "vehiclePaid" as const,
+    title: "Seu veículo está quitado e em seu nome?",
+    description: "Apenas veículos sem financiamento ativo são aceitos como garantia.",
+    blockedMessage:
+      "Para essa modalidade o veículo precisa estar quitado e em seu nome. Converse com um consultor — temos outras opções de crédito e consórcio.",
+  },
+  {
+    key: "vehicleAgeOk" as const,
+    title: "Seu veículo tem até 19 anos de fabricação?",
+    description:
+      "Carros, SUVs e utilitários são aceitos até 19 anos (BV). Outros parceiros variam de 12 a 17 anos.",
+    blockedMessage:
+      "A maioria dos parceiros aceita veículos com até 19 anos. Confirme o ano exato com um consultor para verificarmos opções específicas.",
+  },
+  {
+    key: "incomeOk" as const,
+    title: "Você possui renda compatível com as parcelas?",
+    description: "As instituições financeiras avaliam comprovação de renda na análise de crédito.",
+    blockedMessage:
+      "Renda comprovada é exigida pelas instituições parceiras. Um consultor pode avaliar formas alternativas de comprovação.",
+  },
+];
+
 export function EligibilityQuiz() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<QuizStep>(0);
+  const [blockedMsg, setBlockedMsg] = useState<string | null>(null);
   const [quizData, setQuizData] = useState({
     vehiclePaid: null as boolean | null,
     vehicleAgeOk: null as boolean | null,
@@ -35,298 +63,339 @@ export function EligibilityQuiz() {
 
   const form = useForm<z.infer<typeof leadFormSchema>>({
     resolver: zodResolver(leadFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      cpf: "",
-      licensePlate: "",
-      consentLgpd: undefined,
-    },
+    defaultValues: { name: "", email: "", phone: "", cpf: "", licensePlate: "", consentLgpd: undefined },
   });
 
-  const handleQuizAnswer = (field: keyof typeof quizData, answer: boolean) => {
-    setQuizData((prev) => ({ ...prev, [field]: answer }));
-    if (!answer) {
-      setStep(-1); // Rejected
-    } else {
-      if (step === 3) {
-        setStep(4); // Form
-      } else {
-        setStep(step + 1);
-      }
+  const answer = (key: keyof typeof quizData, value: boolean) => {
+    const next = { ...quizData, [key]: value };
+    setQuizData(next);
+    if (!value) {
+      const q = QUESTIONS.find((q) => q.key === key);
+      setBlockedMsg(q?.blockedMessage ?? "Não podemos seguir com a simulação agora.");
+      return;
     }
+    setStep((s) => (s + 1) as QuizStep);
+  };
+
+  const reset = () => {
+    setStep(0);
+    setBlockedMsg(null);
+    setQuizData({ vehiclePaid: null, vehicleAgeOk: null, incomeOk: null });
+    form.reset();
   };
 
   const onSubmit = (values: z.infer<typeof leadFormSchema>) => {
-    submitLead.mutate({
-      data: {
-        name: values.name,
-        email: values.email,
-        phone: values.phone.replace(/\D/g, ''),
-        cpf: values.cpf.replace(/\D/g, ''),
-        licensePlate: values.licensePlate,
-        vehiclePaid: quizData.vehiclePaid,
-        vehicleInOwnerName: true,
-        hasIncome: quizData.incomeOk,
-        consentLgpd: values.consentLgpd,
-        source: "website",
-      }
-    }, {
-      onSuccess: () => {
-        setStep(5); // Success
-      }
-    });
+    submitLead.mutate(
+      {
+        data: {
+          name: values.name,
+          email: values.email,
+          phone: values.phone.replace(/\D/g, ""),
+          cpf: values.cpf.replace(/\D/g, ""),
+          licensePlate: values.licensePlate,
+          vehiclePaid: quizData.vehiclePaid,
+          vehicleInOwnerName: true,
+          hasIncome: quizData.incomeOk,
+          consentLgpd: values.consentLgpd,
+          source: "website",
+        },
+      },
+      { onSuccess: () => setStep(4) }
+    );
   };
 
+  const currentQuestion = QUESTIONS[step] ?? null;
+  const isSuccess = step === 4;
+  const isBlocked = blockedMsg !== null;
+  const isForm = step === 3 && !isBlocked;
+
   return (
-    <section id="simular" className="py-24 bg-background relative scroll-mt-16">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-            Simulação Gratuita
+    <section id="simular" className="py-16 lg:py-24 section-alt scroll-mt-16">
+      <div className="container-f1">
+        <div className="max-w-2xl mx-auto text-center mb-10">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[hsl(268,63%,46%)]/10 px-3 py-1.5 text-xs font-medium text-[hsl(268,63%,40%)]">
+            Passo 1 · Elegibilidade rápida
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-[hsl(221,72%,14%)] mt-4">
+            Veja em <span className="brand-gradient-text">30 segundos</span> se você se encaixa
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Descubra em minutos se o seu perfil tem pré-aprovação.
+          <p className="mt-3 text-[hsl(221,15%,40%)]">
+            3 perguntas rápidas para adiantar sua análise. Em seguida, preencha seus dados com
+            segurança para nossa equipe te ajudar.
           </p>
         </div>
 
-        <Card className="border-border/50 shadow-lg relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-secondary">
-            <div 
-              className="h-full bg-primary transition-all duration-500 ease-in-out"
-              style={{ width: `${step > 0 && step <= 4 ? (step / 4) * 100 : 100}%` }}
-            ></div>
-          </div>
-          <CardHeader className="pt-8">
-            {step >= 1 && step <= 3 && (
-              <CardDescription className="text-center font-medium text-primary">
-                Passo {step} de 3
-              </CardDescription>
-            )}
-            <CardTitle className="text-center text-2xl font-display">
-              {step === 1 && "Seu veículo está quitado e em seu nome?"}
-              {step === 2 && "O veículo tem até 19 anos de fabricação?"}
-              {step === 3 && "Você possui renda compatível com as parcelas?"}
-              {step === 4 && "Ótimo! Preencha os dados para ver sua proposta"}
-              {step === 5 && "Solicitação enviada com sucesso!"}
-              {step === -1 && "Infelizmente não podemos prosseguir"}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pb-8">
-            
-            {/* Quiz Steps */}
-            {step === 1 && (
-              <div className="grid grid-cols-2 gap-4 mt-4">
-                <Button variant="outline" className="h-16 text-lg hover:border-primary hover:text-primary" onClick={() => handleQuizAnswer('vehiclePaid', true)} data-testid="quiz-q1-yes">
-                  Sim
-                </Button>
-                <Button variant="outline" className="h-16 text-lg hover:border-destructive hover:text-destructive" onClick={() => handleQuizAnswer('vehiclePaid', false)} data-testid="quiz-q1-no">
-                  Não
-                </Button>
+        <div className="max-w-2xl mx-auto">
+          <div className="rounded-xl bg-white p-6 sm:p-8 shadow-card">
+
+            {/* Progress bar — 3 segments */}
+            {!isSuccess && (
+              <div className="flex items-center gap-2 mb-6">
+                {[0, 1, 2].map((i) => (
+                  <div
+                    key={i}
+                    className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
+                      i < step && !isBlocked ? "bg-[hsl(268,63%,46%)]" : "bg-[hsl(220,20%,90%)]"
+                    }`}
+                  />
+                ))}
               </div>
             )}
 
-            {step === 2 && (
-              <div className="grid grid-cols-2 gap-4 mt-4">
-                <Button variant="outline" className="h-16 text-lg hover:border-primary hover:text-primary" onClick={() => handleQuizAnswer('vehicleAgeOk', true)} data-testid="quiz-q2-yes">
-                  Sim
-                </Button>
-                <Button variant="outline" className="h-16 text-lg hover:border-destructive hover:text-destructive" onClick={() => handleQuizAnswer('vehicleAgeOk', false)} data-testid="quiz-q2-no">
-                  Não
-                </Button>
-              </div>
-            )}
+            <AnimatePresence mode="wait">
 
-            {step === 3 && (
-              <div className="grid grid-cols-2 gap-4 mt-4">
-                <Button variant="outline" className="h-16 text-lg hover:border-primary hover:text-primary" onClick={() => handleQuizAnswer('incomeOk', true)} data-testid="quiz-q3-yes">
-                  Sim
-                </Button>
-                <Button variant="outline" className="h-16 text-lg hover:border-destructive hover:text-destructive" onClick={() => handleQuizAnswer('incomeOk', false)} data-testid="quiz-q3-no">
-                  Não
-                </Button>
-              </div>
-            )}
-
-            {/* Rejected State */}
-            {step === -1 && (
-              <div className="text-center mt-2 flex flex-col items-center">
-                <AlertCircle className="h-16 w-16 text-muted-foreground mb-4 opacity-50" />
-                <p className="text-muted-foreground mb-8">
-                  Para essa modalidade de crédito, o veículo precisa estar totalmente quitado, em seu nome, e ter no máximo 19 anos de fabricação.
-                </p>
-                <Button className="w-full" asChild>
-                  <a href="https://wa.me/5516988602882" target="_blank" rel="noopener noreferrer">
+              {/* Blocked */}
+              {isBlocked && (
+                <motion.div
+                  key="blocked"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  className="text-center py-4"
+                >
+                  <div className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-orange-100 mb-4">
+                    <AlertCircle className="h-7 w-7 text-orange-500" />
+                  </div>
+                  <h3 className="font-display font-semibold text-[hsl(221,72%,14%)] text-xl mb-3">
+                    Vamos conversar antes de prosseguir
+                  </h3>
+                  <p className="text-sm text-[hsl(221,15%,40%)] leading-relaxed mb-6">{blockedMsg}</p>
+                  <a
+                    href="https://wa.me/5516988602882?text=Ol%C3%A1%2C+F1%21+Fiz+o+quiz+de+pr%C3%A9-qualifica%C3%A7%C3%A3o+e+gostaria+de+entender+as+op%C3%A7%C3%B5es+para+o+meu+perfil."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 w-full justify-center bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-3 px-6 rounded-lg transition-colors mb-3"
+                  >
+                    <MessageCircle className="h-4 w-4" />
                     Falar com consultor no WhatsApp
                   </a>
-                </Button>
-                <Button variant="ghost" className="mt-4" onClick={() => { setStep(1); setQuizData({ vehiclePaid: null, vehicleAgeOk: null, incomeOk: null }); }}>
-                  Refazer simulação
-                </Button>
-              </div>
-            )}
+                  <button
+                    onClick={reset}
+                    className="flex items-center gap-2 text-sm text-[hsl(268,63%,46%)] hover:underline mx-auto mt-2"
+                  >
+                    <RefreshCw className="h-3.5 w-3.5" />
+                    Refazer a simulação
+                  </button>
+                </motion.div>
+              )}
 
-            {/* Success State */}
-            {step === 5 && (
-              <div className="text-center mt-2 flex flex-col items-center">
-                <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-full mb-6">
-                  <CheckCircle2 className="h-16 w-16 text-green-600 dark:text-green-500" />
-                </div>
-                <p className="text-foreground text-lg font-medium mb-2">
-                  Recebemos seus dados!
-                </p>
-                <p className="text-muted-foreground mb-8">
-                  Um de nossos consultores especializados vai analisar o seu perfil nos bancos parceiros e entrará em contato em instantes pelo WhatsApp.
-                </p>
-                <Button className="w-full h-14 text-base bg-[#25D366] hover:bg-[#20bd5a] text-white" asChild>
-                  <a href="https://wa.me/5516988602882" target="_blank" rel="noopener noreferrer">
+              {/* Quiz questions */}
+              {!isBlocked && !isForm && !isSuccess && currentQuestion && (
+                <motion.div
+                  key={`q-${step}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <div className="text-xs text-[hsl(221,15%,50%)] mb-2 font-medium">
+                    Pergunta {step + 1} de 3
+                  </div>
+                  <h3 className="font-display font-bold text-[hsl(221,72%,14%)] text-2xl mb-2">
+                    {currentQuestion.title}
+                  </h3>
+                  <p className="text-sm text-[hsl(221,15%,45%)] mb-6">{currentQuestion.description}</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button
+                      size="lg"
+                      className="h-14 text-base font-semibold bg-[hsl(268,63%,46%)] hover:bg-[hsl(268,63%,40%)] text-white"
+                      onClick={() => answer(currentQuestion.key, true)}
+                      data-testid={`quiz-q${step + 1}-yes`}
+                    >
+                      Sim
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="h-14 text-base font-semibold border-[hsl(220,20%,88%)] text-[hsl(221,72%,14%)] hover:bg-[hsl(222,25%,96%)]"
+                      onClick={() => answer(currentQuestion.key, false)}
+                      data-testid={`quiz-q${step + 1}-no`}
+                    >
+                      Não
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Lead form */}
+              {isForm && (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <div className="mb-5">
+                    <h3 className="font-display font-bold text-[hsl(221,72%,14%)] text-xl mb-1">
+                      Ótimo! Preencha seus dados para receber sua proposta
+                    </h3>
+                    <p className="text-sm text-[hsl(221,15%,45%)]">
+                      Seus dados são protegidos por criptografia e usados apenas para a análise.
+                    </p>
+                  </div>
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[hsl(221,72%,14%)] font-medium text-sm">Nome Completo</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Seu nome completo" {...field} data-testid="input-name" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[hsl(221,72%,14%)] font-medium text-sm">E-mail</FormLabel>
+                            <FormControl>
+                              <Input placeholder="seu@email.com" type="email" {...field} data-testid="input-email" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="phone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-[hsl(221,72%,14%)] font-medium text-sm">WhatsApp</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="(00) 00000-0000"
+                                  {...field}
+                                  onChange={(e) => field.onChange(maskPhone(e.target.value))}
+                                  maxLength={15}
+                                  data-testid="input-phone"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="cpf"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-[hsl(221,72%,14%)] font-medium text-sm">CPF</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="000.000.000-00"
+                                  {...field}
+                                  onChange={(e) => field.onChange(maskCpf(e.target.value))}
+                                  maxLength={14}
+                                  data-testid="input-cpf"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <FormField
+                        control={form.control}
+                        name="licensePlate"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[hsl(221,72%,14%)] font-medium text-sm">Placa do Veículo</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="ABC1D23"
+                                {...field}
+                                onChange={(e) => field.onChange(maskPlate(e.target.value))}
+                                maxLength={7}
+                                data-testid="input-plate"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="consentLgpd"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start gap-3 p-4 rounded-lg bg-[hsl(222,25%,97%)] border border-[hsl(220,20%,91%)]">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                data-testid="checkbox-lgpd"
+                              />
+                            </FormControl>
+                            <FormLabel className="text-xs font-normal text-[hsl(221,15%,40%)] cursor-pointer leading-relaxed">
+                              Li e concordo com a{" "}
+                              <Link href="/politica-de-privacidade" className="text-[hsl(268,63%,46%)] hover:underline">
+                                Política de Privacidade
+                              </Link>{" "}
+                              e autorizo o uso dos meus dados para análise de crédito conforme a LGPD.
+                            </FormLabel>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full h-14 text-base font-semibold bg-[hsl(268,63%,46%)] hover:bg-[hsl(268,63%,40%)] text-white mt-1"
+                        disabled={submitLead.isPending}
+                        data-testid="button-submit-simulation"
+                      >
+                        {submitLead.isPending ? "Enviando..." : (
+                          <>
+                            Enviar para análise
+                            <ChevronRight className="ml-2 h-5 w-5" />
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </Form>
+                </motion.div>
+              )}
+
+              {/* Success */}
+              {isSuccess && (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center py-6"
+                >
+                  <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-5">
+                    <CheckCircle2 className="h-8 w-8 text-green-600" />
+                  </div>
+                  <h3 className="font-display font-bold text-[hsl(221,72%,14%)] text-2xl mb-3">
+                    Solicitação enviada!
+                  </h3>
+                  <p className="text-sm text-[hsl(221,15%,40%)] leading-relaxed mb-6 max-w-sm mx-auto">
+                    Um consultor vai analisar seu perfil nos 4 bancos parceiros e entrar em contato
+                    em instantes pelo WhatsApp.
+                  </p>
+                  <a
+                    href="https://wa.me/5516988602882"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 justify-center w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                  >
+                    <MessageCircle className="h-4 w-4" />
                     Ir para o WhatsApp agora
                   </a>
-                </Button>
-              </div>
-            )}
+                </motion.div>
+              )}
 
-            {/* Lead Form */}
-            {step === 4 && (
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 mt-4">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nome Completo</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Seu nome completo" {...field} data-testid="input-name" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>E-mail</FormLabel>
-                        <FormControl>
-                          <Input placeholder="seu@email.com" type="email" {...field} data-testid="input-email" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <FormField
-                      control={form.control}
-                      name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>WhatsApp</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="(00) 00000-0000" 
-                              {...field} 
-                              onChange={(e) => field.onChange(maskPhone(e.target.value))}
-                              maxLength={15}
-                              data-testid="input-phone" 
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="cpf"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>CPF</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="000.000.000-00" 
-                              {...field} 
-                              onChange={(e) => field.onChange(maskCpf(e.target.value))}
-                              maxLength={14}
-                              data-testid="input-cpf" 
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name="licensePlate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Placa do Veículo</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="ABC1D23" 
-                            {...field} 
-                            onChange={(e) => field.onChange(maskPlate(e.target.value))}
-                            maxLength={7}
-                            data-testid="input-plate" 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="consentLgpd"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 p-4 border rounded-lg bg-muted/50 mt-6">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            data-testid="checkbox-lgpd"
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-normal text-muted-foreground cursor-pointer">
-                            Concordo com a{" "}
-                            <Link href="/politica-de-privacidade" className="text-primary hover:underline" target="_blank">
-                              Política de Privacidade
-                            </Link>{" "}
-                            e aceito receber comunicações da F1 Soluções Financeiras.
-                          </FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-
-                  {form.formState.errors.consentLgpd && (
-                     <p className="text-[0.8rem] font-medium text-destructive">
-                       {form.formState.errors.consentLgpd.message}
-                     </p>
-                  )}
-
-                  <Button 
-                    type="submit" 
-                    className="w-full h-14 text-base mt-2" 
-                    disabled={submitLead.isPending}
-                    data-testid="button-submit-simulation"
-                  >
-                    {submitLead.isPending ? "Processando..." : (
-                      <>
-                        Enviar simulação
-                        <ChevronRight className="ml-2 h-5 w-5" />
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </Form>
-            )}
-
-          </CardContent>
-        </Card>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </section>
   );
