@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 const STEPS = [
   {
     n: "01",
-    img: "/images/step-simulation.jpg",
+    img: "/images/step-simulation.png",
     title: "Simule em 1 minuto",
     text: "Responda 3 perguntas rápidas de elegibilidade e informe seus dados com segurança: nome, e-mail, WhatsApp, CPF e placa do veículo.",
   },
   {
     n: "02",
-    img: "/images/step-approval.jpg",
+    img: "/images/step-approval.png",
     title: "Comparação em 4 bancos",
     text: "Nosso consultor analisa seu perfil simultaneamente em Porto Bank, BV, C6 e Creditas e apresenta a melhor proposta.",
   },
   {
     n: "03",
-    img: "/images/step-money.jpg",
+    img: "/images/step-money.png",
     title: "Assinatura e liberação",
     text: "Com a proposta escolhida, você assina digitalmente e o valor é depositado na sua conta.",
   },
@@ -47,11 +47,11 @@ export function HowItWorksSection() {
               transition={{ duration: 0.4, delay: i * 0.1 }}
               className="relative rounded-xl bg-white p-6 shadow-card"
             >
-              <div className="relative aspect-square rounded-lg overflow-hidden bg-[hsl(222,25%,96%)] mb-4">
+              <div className="relative aspect-square rounded-lg overflow-hidden bg-[hsl(222,25%,96%)] mb-4 flex items-center justify-center">
                 <img
                   src={s.img}
                   alt={`Passo ${s.n}: ${s.title}`}
-                  className="object-cover w-full h-full"
+                  className="object-contain w-full h-full p-4"
                 />
               </div>
               <div className="font-mono text-xs font-semibold text-[hsl(268,63%,46%)]">PASSO {s.n}</div>
