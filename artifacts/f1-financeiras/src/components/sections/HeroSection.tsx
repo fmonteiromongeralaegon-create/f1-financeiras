@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ShieldCheck, Landmark, CheckCircle2, Car } from "lucide-react";
+import { ShieldCheck, Landmark, CheckCircle2, Car, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
@@ -7,7 +7,7 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden hero-gradient text-white">
       <div className="container-f1 py-16 lg:py-24 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-10 items-center">
+        <div className="grid lg:grid-cols-12 gap-10 items-stretch">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,23 +78,26 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="lg:col-span-5 hidden lg:block"
+            className="lg:col-span-5 hidden lg:flex lg:flex-col"
           >
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
+            <div className="relative flex-1 min-h-[420px] rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
               <img
                 src="/images/hero-car-keys.jpg"
                 alt="Chaves de carro — empréstimo com garantia de veículo"
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full absolute inset-0"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(221,72%,10%)]/40 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
-                <div className="flex items-center justify-between text-white text-sm font-medium">
-                  <span>Simulação em 1 minuto</span>
-                  <span className="text-[hsl(293,67%,75%)]">Gratuita ✓</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(221,72%,10%)]/50 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg">
+                <div className="flex items-center gap-1.5 text-[hsl(268,63%,46%)] text-xs font-semibold mb-2">
+                  <Clock className="h-3.5 w-3.5" />
+                  APROVAÇÃO EM ATÉ 24H
                 </div>
-                <div className="mt-2 h-1.5 rounded-full bg-white/20 overflow-hidden">
-                  <div className="h-full w-3/4 rounded-full brand-gradient-bg" />
-                </div>
+                <p className="font-display font-bold text-[hsl(221,72%,14%)] text-base leading-snug">
+                  Seu carro continua com você.
+                </p>
+                <p className="text-xs text-[hsl(221,15%,50%)] mt-1">
+                  Garantia sem transferência de posse · Resposta rápida dos 4 bancos
+                </p>
               </div>
             </div>
           </motion.div>
