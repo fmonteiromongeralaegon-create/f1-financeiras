@@ -19,8 +19,8 @@ export function HeroSection() {
               Empréstimo com veículo em garantia
             </span>
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mt-4">
-              Use seu carro como garantia e pegue dinheiro com as{" "}
-              <span className="brand-gradient-text">melhores taxas</span> do mercado.
+              Seu carro quitado pode ser{" "}
+              <span className="brand-gradient-text">a solução</span> que você estava procurando.
             </h1>
             <p className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
               A F1 compara o seu perfil em{" "}
