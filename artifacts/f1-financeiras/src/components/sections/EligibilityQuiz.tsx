@@ -6,7 +6,6 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { maskCpf, maskPhone, maskPlate, validateCpf } from "@/lib/masks";
 import { useSubmitLead } from "@workspace/api-client-react";
 import { Link } from "wouter";
@@ -18,9 +17,6 @@ const leadFormSchema = z.object({
   phone: z.string().min(14, "Telefone inválido"),
   cpf: z.string().refine((val) => validateCpf(val), "CPF inválido"),
   licensePlate: z.string().min(7, "Placa inválida"),
-  consentLgpd: z.literal(true, {
-    errorMap: () => ({ message: "Você precisa concordar com a Política de Privacidade" }),
-  }),
 });
 
 type QuizStep = 0 | 1 | 2 | 3 | 4;
@@ -63,7 +59,7 @@ export function EligibilityQuiz() {
 
   const form = useForm<z.infer<typeof leadFormSchema>>({
     resolver: zodResolver(leadFormSchema),
-    defaultValues: { name: "", email: "", phone: "", cpf: "", licensePlate: "", consentLgpd: undefined },
+    defaultValues: { name: "", email: "", phone: "", cpf: "", licensePlate: "" },
   });
 
   const answer = (key: keyof typeof quizData, value: boolean) => {
@@ -96,7 +92,7 @@ export function EligibilityQuiz() {
           vehiclePaid: quizData.vehiclePaid,
           vehicleInOwnerName: true,
           hasIncome: quizData.incomeOk,
-          consentLgpd: values.consentLgpd,
+          consentLgpd: true,
           source: "website",
         },
       },
@@ -321,33 +317,10 @@ export function EligibilityQuiz() {
                           </FormItem>
                         )}
                       />
-                      <FormField
-                        control={form.control}
-                        name="consentLgpd"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-row items-start gap-3 p-4 rounded-lg bg-[hsl(222,25%,97%)] border border-[hsl(220,20%,91%)]">
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                                data-testid="checkbox-lgpd"
-                              />
-                            </FormControl>
-                            <FormLabel className="text-xs font-normal text-[hsl(221,15%,40%)] cursor-pointer leading-relaxed">
-                              Li e concordo com a{" "}
-                              <Link href="/politica-de-privacidade" className="text-[hsl(268,63%,46%)] hover:underline">
-                                Política de Privacidade
-                              </Link>{" "}
-                              e autorizo o uso dos meus dados para análise de crédito conforme a LGPD.
-                            </FormLabel>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full h-14 text-base font-semibold bg-[hsl(268,63%,46%)] hover:bg-[hsl(268,63%,40%)] text-white mt-1"
+                        className="w-full h-14 text-base font-semibold bg-[hsl(268,63%,46%)] hover:bg-[hsl(268,63%,40%)] text-white mt-2"
                         disabled={submitLead.isPending}
                         data-testid="button-submit-simulation"
                       >
@@ -358,6 +331,13 @@ export function EligibilityQuiz() {
                           </>
                         )}
                       </Button>
+                      <p className="text-xs text-[hsl(221,15%,45%)] leading-relaxed text-center">
+                        Ao clicar em <strong className="text-[hsl(221,72%,14%)]">Enviar para análise</strong>, você concorda com a{" "}
+                        <Link href="/politica-de-privacidade" className="text-[hsl(268,63%,46%)] hover:underline font-medium">
+                          Política de Privacidade
+                        </Link>{" "}
+                        e autoriza a F1 a tratar seus dados para análise de crédito, conforme a LGPD.
+                      </p>
                     </form>
                   </Form>
                 </motion.div>
