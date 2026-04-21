@@ -5,19 +5,19 @@ const STEPS = [
     n: "01",
     img: "/images/step-simulation.webp",
     title: "Simule em 1 minuto",
-    text: "Responda 3 perguntas rápidas de elegibilidade e informe seus dados com segurança: nome, e-mail, WhatsApp, CPF e placa do veículo.",
+    text: "Preencha seus dados e as informações do veículo. Sem consulta ao CPF nesta etapa — sem impacto no seu score.",
   },
   {
     n: "02",
     img: "/images/step-approval.webp",
     title: "Comparação em 4 bancos",
-    text: "Nosso consultor analisa seu perfil simultaneamente em Porto Bank, BV, C6 e Creditas e apresenta a melhor proposta.",
+    text: "Nossa equipe encaminha sua proposta para Porto Bank, BV, C6 Bank e Creditas ao mesmo tempo. Você recebe a melhor condição disponível para o seu perfil — geralmente no mesmo dia.",
   },
   {
     n: "03",
     img: "/images/step-money.webp",
     title: "Assinatura e liberação",
-    text: "Com a proposta escolhida, você assina digitalmente e o valor é depositado na sua conta.",
+    text: "Contrato 100% digital — você assina de onde estiver, sem filas e sem cartório. Após a assinatura e vistoria do veículo, o dinheiro cai na sua conta em até 24 horas úteis.",
   },
 ];
 
@@ -30,10 +30,10 @@ export function HowItWorksSection() {
             Processo simples
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-[hsl(221,72%,14%)] mt-4">
-            Do seu carro à sua conta em <span className="brand-gradient-text">3 passos</span>
+            Do formulário ao dinheiro na conta — em <span className="brand-gradient-text">3 passos simples</span>
           </h2>
           <p className="mt-3 text-[hsl(221,15%,40%)]">
-            Um processo claro, digital e acompanhado por um consultor especializado em todas as etapas.
+            Um processo 100% digital, transparente e projetado para ser o mais rápido possível.
           </p>
         </div>
 

@@ -11,12 +11,11 @@ export function PartnersTable() {
             Nossos parceiros
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-[hsl(221,72%,14%)] mt-4">
-            Instituições <span className="brand-gradient-text">sólidas e reguladas</span> cuidando do seu crédito
+            Trabalhamos com as <span className="brand-gradient-text">maiores instituições</span> do mercado
           </h2>
           <p className="mt-3 text-[hsl(221,15%,40%)]">
-            Trabalhamos apenas com bancos e financeiras autorizados pelo
-            Banco Central do Brasil. Abaixo, o que torna cada um deles uma
-            referência no mercado.
+            Todos os nossos parceiros são regulamentados pelo Banco Central do Brasil — o que
+            garante segurança, transparência e as melhores condições disponíveis para você.
           </p>
         </div>
 

@@ -4,48 +4,38 @@ import { ArrowRight } from "lucide-react";
 
 const ALL_FAQS = [
   {
-    question: "O que é empréstimo com garantia de veículo?",
+    question: "Preciso deixar o carro com vocês?",
     answer:
-      "É uma modalidade de crédito em que você usa o seu carro quitado como garantia de pagamento. Por ter essa garantia, as instituições financeiras conseguem oferecer taxas de juros muito menores do que as de um empréstimo pessoal comum.",
+      "Não. Seu veículo permanece com você durante todo o contrato. Ele serve apenas como garantia — você continua dirigindo normalmente.",
   },
   {
-    question: "A F1 é um banco?",
+    question: "A F1 Soluções é um banco?",
     answer:
-      "Não. A F1 atua como Correspondente Bancário, conforme as diretrizes da Resolução CMN nº 3.954/2011 do Banco Central. Nós fazemos a intermediação entre você e os grandes bancos para encontrar a melhor taxa para o seu perfil.",
+      "Não. Somos um correspondente bancário autorizado pelo Banco Central (Res. nº 3.954/2011). Nossa função é conectar você às melhores instituições financeiras e encontrar a melhor oferta para o seu perfil — sem custo adicional para você.",
   },
   {
-    question: "Meus dados estão seguros?",
+    question: "Quais são as taxas e prazos?",
     answer:
-      "Completamente seguros. Nosso site possui criptografia de ponta a ponta (HTTPS) e tratamos todos os seus dados em estrita conformidade com a Lei Geral de Proteção de Dados (LGPD).",
+      "Prazo mínimo de 12 meses e máximo de 60 meses. Taxa mínima de 1,49% ao mês, com CET a partir de 45% ao ano. Exemplo representativo: crédito de R$ 30.000 em 48 parcelas de R$ 890,00 · CET 45% ao ano · Total pago: R$ 42.720,00. Valores sujeitos à análise de crédito e avaliação do veículo.",
   },
   {
-    question: "Quais são as taxas cobradas?",
+    question: "E se meu crédito não for aprovado?",
     answer:
-      "As taxas partem de 1,44% ao mês, variando de acordo com o ano do veículo e o seu perfil de crédito. A Taxa Anual Efetiva (TAE) máxima é de 42% a.a.",
+      "Nossa equipe entra em contato e apresenta alternativas disponíveis — como outras modalidades de crédito ou a possibilidade de tentar com outro parceiro financeiro. Não há nenhum custo pela análise.",
   },
   {
-    question: "Qual o prazo mínimo e máximo para pagamento?",
+    question: "O que acontece se eu não pagar as parcelas?",
     answer:
-      "Você pode dividir o seu empréstimo em prazos flexíveis, de 12 até 60 meses, conforme a sua necessidade e a aprovação do banco.",
+      "A inadimplência pode impactar negativamente sua pontuação de crédito (score) e resultar na execução da garantia, ou seja, na retomada do veículo pela instituição financeira, conforme previsto em contrato. Por isso, simule um valor de parcela compatível com sua renda mensal.",
   },
   {
-    question: "Quais veículos são aceitos?",
+    question: "A simulação consulta meu CPF?",
     answer:
-      "Aceitamos carros de passeio, SUVs e utilitários leves com até 19 anos de fabricação. O veículo precisa estar quitado e em nome do solicitante do empréstimo.",
-  },
-  {
-    question: "Posso continuar usando meu carro?",
-    answer:
-      "Sim, absolutamente. O carro continua na sua garagem e você o utiliza normalmente. Apenas constará a observação de alienação fiduciária no documento do veículo até a quitação do empréstimo.",
-  },
-  {
-    question: "Existe cobrança antecipada?",
-    answer:
-      "Não, nunca. A F1 Soluções Financeiras e os bancos parceiros não cobram nenhuma taxa, seguro ou depósito antecipado para a liberação do crédito. Fuja de golpes que exigem pagamentos adiantados.",
+      "Não. A simulação inicial não realiza consulta ao CPF. Você conhece a proposta antes de qualquer compromisso ou impacto no seu score de crédito.",
   },
 ];
 
-const HOME_FAQS = ALL_FAQS.slice(0, 6);
+const HOME_FAQS = ALL_FAQS;
 
 interface FaqSectionProps {
   /** When true, renders all questions in a single full-width accordion (for the /faq page) */
@@ -87,8 +77,8 @@ export function FaqSection({ fullPage = false }: FaqSectionProps) {
               Perguntas frequentes
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-[hsl(221,72%,14%)] mt-4 leading-tight">
-              Tire suas dúvidas{" "}
-              <span className="brand-gradient-text">antes de simular</span>
+              Perguntas frequentes —{" "}
+              <span className="brand-gradient-text">tudo que você precisa saber</span>
             </h2>
             <p className="mt-4 text-[hsl(221,15%,40%)] text-sm leading-relaxed">
               Nada de letra miúda. Se a resposta que você precisa não estiver aqui, fale com um

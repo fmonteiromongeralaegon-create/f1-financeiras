@@ -10,7 +10,6 @@ const BenefitsSection = lazy(() => import("@/components/sections/BenefitsSection
 const HowItWorksSection = lazy(() => import("@/components/sections/HowItWorksSection").then(m => ({ default: m.HowItWorksSection })));
 const PartnersTable = lazy(() => import("@/components/sections/PartnersTable").then(m => ({ default: m.PartnersTable })));
 const GuaranteesSection = lazy(() => import("@/components/sections/GuaranteesSection").then(m => ({ default: m.GuaranteesSection })));
-const TestimonialsSection = lazy(() => import("@/components/sections/TestimonialsSection").then(m => ({ default: m.TestimonialsSection })));
 const FaqSection = lazy(() => import("@/components/sections/FaqSection").then(m => ({ default: m.FaqSection })));
 const CtaSection = lazy(() => import("@/components/sections/CtaSection").then(m => ({ default: m.CtaSection })));
 
@@ -27,7 +26,6 @@ export default function Home() {
           <HowItWorksSection />
           <PartnersTable />
           <GuaranteesSection />
-          <TestimonialsSection />
           <FaqSection />
           <CtaSection />
         </Suspense>

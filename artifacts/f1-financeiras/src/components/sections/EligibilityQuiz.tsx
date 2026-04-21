@@ -120,8 +120,8 @@ export function EligibilityQuiz() {
             Veja em <span className="brand-gradient-text">30 segundos</span> se você se encaixa
           </h2>
           <p className="mt-3 text-[hsl(221,15%,40%)]">
-            3 perguntas rápidas para adiantar sua análise. Em seguida, preencha seus dados com
-            segurança para nossa equipe te ajudar.
+            Responda três perguntas e descubra se seu veículo se qualifica para crédito com as
+            menores taxas do mercado.
           </p>
         </div>
 

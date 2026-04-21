@@ -94,13 +94,13 @@ export function HeroSection() {
               <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg">
                 <div className="flex items-center gap-1.5 text-[hsl(268,63%,46%)] text-xs font-semibold mb-2">
                   <Clock className="h-3.5 w-3.5" />
-                  APROVAÇÃO EM ATÉ 24H
+                  APROVAÇÃO EM ATÉ 24H ÚTEIS
                 </div>
                 <p className="font-display font-bold text-[hsl(221,72%,14%)] text-base leading-snug">
                   Seu carro continua com você.
                 </p>
                 <p className="text-xs text-[hsl(221,15%,50%)] mt-1">
-                  Garantia sem transferência de posse · Resposta rápida dos 4 bancos
+                  Sem custo para simular · Resposta rápida dos 4 bancos
                 </p>
               </div>
             </div>

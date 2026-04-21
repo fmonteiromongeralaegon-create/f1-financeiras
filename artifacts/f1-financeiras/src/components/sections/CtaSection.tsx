@@ -15,9 +15,8 @@ export function CtaSection() {
               Pronto para descobrir sua <span className="brand-gradient-text">melhor proposta</span>?
             </h2>
             <p className="mt-4 text-white/80 text-base sm:text-lg">
-              Simulação gratuita, sem compromisso e com total sigilo dos seus
-              dados. Responda 3 perguntas e em instantes nosso consultor entra
-              em contato.
+              Simulação gratuita, sem compromisso e sem consulta ao CPF. Responda 3 perguntas e
+              nossa equipe retorna no mesmo dia com a melhor oferta disponível para o seu perfil.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Button
@@ -27,7 +26,7 @@ export function CtaSection() {
                 data-testid="button-cta-simular"
               >
                 <a href="#simular">
-                  Fazer simulação <ArrowRight className="h-4 w-4 ml-2" />
+                  Simular gratuitamente <ArrowRight className="h-4 w-4 ml-2" />
                 </a>
               </Button>
               <Button
@@ -43,7 +42,7 @@ export function CtaSection() {
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="h-4 w-4 mr-2" />
-                  Falar com consultor
+                  Falar com consultor no WhatsApp
                 </a>
               </Button>
             </div>

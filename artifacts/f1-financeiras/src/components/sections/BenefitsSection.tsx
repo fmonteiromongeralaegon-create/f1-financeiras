@@ -4,33 +4,33 @@ import { Percent, Clock, ShieldCheck, Users, Handshake, ThumbsUp } from "lucide-
 const BENEFITS = [
   {
     icon: Percent,
-    title: "Melhor taxa garantida",
-    text: "4 instituições competem pela sua aprovação. Apresentamos a menor taxa disponível para o seu perfil.",
+    title: "Taxas até 3x menores que o cartão de crédito",
+    text: "A garantia do seu veículo reduz o risco da operação — e isso se traduz em juros muito menores do que crédito pessoal, cheque especial ou cartão.",
   },
   {
     icon: Clock,
-    title: "Aprovação em até 24h",
-    text: "Análise ágil com respostas em poucas horas. Contrato digital quando o perfil for aprovado.",
+    title: "Resposta no mesmo dia — sem enrolação",
+    text: "Nossa equipe analisa seu perfil em até 4 instituições financeiras simultaneamente. Você recebe a proposta no mesmo dia, sem precisar sair de casa.",
   },
   {
     icon: ShieldCheck,
-    title: "Transparência total",
-    text: "Divulgamos TAE, CET e exemplo representativo. Sem letras miúdas e sem cobrança antecipada.",
+    title: "Você sabe exatamente o que vai pagar antes de assinar",
+    text: "Apresentamos todas as condições — taxa, prazo, parcela e custo total — antes de qualquer compromisso. Sem letras miúdas, sem surpresas.",
   },
   {
     icon: Users,
-    title: "Consultor dedicado",
-    text: "Atendimento humano por um consultor especializado. Acompanhamento da simulação à liberação.",
+    title: "Uma pessoa real cuidando do seu caso — não um robô",
+    text: "Você tem um consultor dedicado do início ao fim. Uma pessoa que conhece o seu perfil e trabalha para encontrar a melhor solução para você.",
   },
   {
     icon: Handshake,
-    title: "Parceiros regulados",
-    text: "Trabalhamos com bancos e financeiras regulamentados pelo Banco Central do Brasil.",
+    title: "4 bancos analisando seu perfil ao mesmo tempo",
+    text: "Porto Bank, Banco BV, C6 Bank e Creditas — todos regulados pelo Banco Central — analisam sua proposta simultaneamente. Mais chances de aprovação, melhor oferta.",
   },
   {
     icon: ThumbsUp,
-    title: "Zero surpresa",
-    text: "Informamos todos os custos antes da contratação. Você decide seguir somente após conferir tudo.",
+    title: "Sem taxas escondidas, sem cobranças antecipadas",
+    text: "A F1 Soluções não cobra nenhum valor antes da liberação do crédito. Nossa remuneração vem das instituições financeiras — não do seu bolso.",
   },
 ];
 
@@ -43,11 +43,11 @@ export function BenefitsSection() {
             Por que a F1
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-[hsl(221,72%,14%)] mt-4">
-            Um parceiro entre você e as <span className="brand-gradient-text">melhores ofertas</span>
+            Por que a F1 Soluções é a <span className="brand-gradient-text">escolha certa</span>
           </h2>
           <p className="mt-3 text-[hsl(221,15%,40%)]">
-            Diferente de um único banco, a F1 trabalha com múltiplas instituições para garantir a proposta
-            mais vantajosa disponível para cada cliente.
+            Oferecemos muito mais do que crédito — oferecemos a melhor condição disponível para
+            o seu perfil, com transparência e agilidade do início ao fim.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -65,7 +65,7 @@ export function BenefitsSection() {
                 <div className="h-11 w-11 rounded-lg brand-gradient-bg-soft flex items-center justify-center mb-4">
                   <Icon className="h-5 w-5 text-[hsl(268,63%,46%)]" />
                 </div>
-                <h3 className="font-display font-semibold text-[hsl(221,72%,14%)] text-lg">{b.title}</h3>
+                <h3 className="font-display font-semibold text-[hsl(221,72%,14%)] text-lg leading-snug">{b.title}</h3>
                 <p className="mt-2 text-sm text-[hsl(221,15%,40%)] leading-relaxed">{b.text}</p>
               </motion.div>
             );
