@@ -34,6 +34,10 @@ export function PartnersTable() {
                 <img
                   src={p.logo}
                   alt={`Logo ${p.name}`}
+                  width={160}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
                   className="object-contain object-left h-full w-full"
                 />
               </div>

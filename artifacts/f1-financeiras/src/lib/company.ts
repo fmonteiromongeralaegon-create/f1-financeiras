@@ -29,7 +29,7 @@ export const PARTNERS: Partner[] = [
   {
     name: 'Porto Bank',
     slug: 'porto',
-    logo: '/images/partner-porto.png',
+    logo: '/images/partner-porto.webp',
     note: 'Braço financeiro do Grupo Porto, uma das marcas mais tradicionais e confiáveis do Brasil.',
     strengths: [
       'Grupo fundado em 1945',
@@ -41,7 +41,7 @@ export const PARTNERS: Partner[] = [
   {
     name: 'Banco BV',
     slug: 'bv',
-    logo: '/images/partner-bv.png',
+    logo: '/images/partner-bv.webp',
     note: 'Um dos maiores bancos privados do país, referência em crédito com garantia de veículos.',
     strengths: [
       'Mais de 30 anos no mercado',
@@ -53,7 +53,7 @@ export const PARTNERS: Partner[] = [
   {
     name: 'C6 Bank',
     slug: 'c6',
-    logo: '/images/partner-c6.png',
+    logo: '/images/partner-c6.webp',
     note: 'Banco digital completo, sócio do Bank of America, com atendimento 100% online e seguro.',
     strengths: [
       'Participação do Bank of America',
@@ -65,7 +65,7 @@ export const PARTNERS: Partner[] = [
   {
     name: 'Creditas',
     slug: 'creditas',
-    logo: '/images/partner-creditas.png',
+    logo: '/images/partner-creditas.webp',
     note: 'Maior fintech brasileira especializada em crédito com garantia — modelo de negócio com foco em juros justos.',
     strengths: [
       'Fundada em 2012',

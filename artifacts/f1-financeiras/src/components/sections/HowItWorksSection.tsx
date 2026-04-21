@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 const STEPS = [
   {
     n: "01",
-    img: "/images/step-simulation.png",
+    img: "/images/step-simulation.webp",
     title: "Simule em 1 minuto",
     text: "Responda 3 perguntas rápidas de elegibilidade e informe seus dados com segurança: nome, e-mail, WhatsApp, CPF e placa do veículo.",
   },
   {
     n: "02",
-    img: "/images/step-approval.png",
+    img: "/images/step-approval.webp",
     title: "Comparação em 4 bancos",
     text: "Nosso consultor analisa seu perfil simultaneamente em Porto Bank, BV, C6 e Creditas e apresenta a melhor proposta.",
   },
   {
     n: "03",
-    img: "/images/step-money.png",
+    img: "/images/step-money.webp",
     title: "Assinatura e liberação",
     text: "Com a proposta escolhida, você assina digitalmente e o valor é depositado na sua conta.",
   },
@@ -51,6 +51,10 @@ export function HowItWorksSection() {
                 <img
                   src={s.img}
                   alt={`Passo ${s.n}: ${s.title}`}
+                  width={800}
+                  height={800}
+                  loading="lazy"
+                  decoding="async"
                   className="object-contain w-full h-full p-4"
                 />
               </div>

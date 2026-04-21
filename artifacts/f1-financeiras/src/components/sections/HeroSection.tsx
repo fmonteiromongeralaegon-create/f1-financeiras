@@ -82,8 +82,12 @@ export function HeroSection() {
           >
             <div className="relative flex-1 min-h-[420px] rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
               <img
-                src="/images/hero-car-keys.jpg"
+                src="/images/hero-car-keys.webp"
                 alt="Chaves de carro — empréstimo com garantia de veículo"
+                width={1200}
+                height={800}
+                fetchPriority="high"
+                decoding="async"
                 className="object-cover w-full h-full absolute inset-0"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[hsl(221,72%,10%)]/50 via-transparent to-transparent" />

@@ -23,8 +23,12 @@ export function SiteHeader() {
         <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="F1 Soluções Financeiras — início">
           <div className="relative h-10 w-10">
             <img
-              src="/logos/logo-f1-oficial.png"
+              src="/logos/logo-f1-oficial.webp"
               alt="F1 Soluções Financeiras"
+              width={40}
+              height={40}
+              fetchPriority="high"
+              decoding="async"
               className="object-contain h-full w-full"
             />
           </div>

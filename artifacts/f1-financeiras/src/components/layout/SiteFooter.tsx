@@ -15,8 +15,12 @@ export function SiteFooter() {
             {/* Logo + name */}
             <Link href="/" className="flex items-center gap-3 mb-5" aria-label="F1 Soluções Financeiras">
               <img
-                src="/logos/logo-f1-dark.png"
+                src="/logos/logo-f1-dark.webp"
                 alt="F1 Soluções Financeiras"
+                width={56}
+                height={56}
+                loading="lazy"
+                decoding="async"
                 className="h-14 w-14 rounded-lg object-contain shrink-0"
               />
               <div>
