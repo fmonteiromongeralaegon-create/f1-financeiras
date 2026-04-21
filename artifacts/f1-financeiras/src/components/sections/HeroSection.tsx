@@ -32,7 +32,7 @@ export function HeroSection() {
             <ul className="mt-6 space-y-2.5 text-sm text-white/85">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
-                Taxas a partir de <strong className="text-white">1,44% a.m.</strong>, sujeito à análise de crédito
+                Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
