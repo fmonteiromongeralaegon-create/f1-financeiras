@@ -7,7 +7,38 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden hero-gradient text-white">
 
-      <div className="container-f1 pt-10 pb-12 lg:py-24 relative z-10">
+      {/* ── MOBILE: full-bleed background image ── */}
+      {/*
+          The original image has the person centered at x≈42% of 1200px.
+          After scaling to fill height (1125×750), she sits at x≈472px.
+          With object-[55%_0%], the visible window is 404–794px of the scaled image.
+          She appears at (472-404)/390 ≈ 17% from the LEFT inside the window.
+          scaleX(-1) then mirrors her to 100%-17% = 83% from the LEFT → right edge.
+      */}
+      <div className="absolute inset-0 lg:hidden" aria-hidden="true">
+        <img
+          src="/images/hero-car-keys.webp"
+          alt=""
+          width={1200}
+          height={800}
+          fetchPriority="high"
+          decoding="async"
+          className="object-cover object-[55%_0%] w-full h-full"
+          style={{ transform: "scaleX(-1)" }}
+        />
+        {/* Left smoke: solid navy → fades out toward right where person appears */}
+        <div className="absolute inset-0 bg-gradient-to-r
+          from-[hsl(221,72%,10%)]        from-[0%]
+          via-[hsl(221,72%,10%)]/85      via-[42%]
+          to-transparent                 to-[78%]" />
+        {/* Bottom reinforcement so CTAs stay legible */}
+        <div className="absolute inset-0 bg-gradient-to-t
+          from-[hsl(221,72%,10%)]        from-[0%]
+          via-[hsl(221,72%,10%)]/60      via-[18%]
+          to-transparent                 to-[38%]" />
+      </div>
+
+      <div className="container-f1 pt-10 pb-14 lg:py-24 relative z-10">
         <div className="grid lg:grid-cols-12 gap-10 items-stretch">
 
           {/* ── Main content ── */}
@@ -17,58 +48,36 @@ export function HeroSection() {
             transition={{ duration: 0.5 }}
             className="lg:col-span-7"
           >
-            {/* ── MOBILE: two-column row — text left, portrait image right ── */}
-            <div className="flex items-start gap-3 lg:block">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur">
+              <Car className="h-3.5 w-3.5 text-[hsl(293,67%,75%)]" />
+              Empréstimo com veículo em garantia
+            </span>
 
-              {/* Text column */}
-              <div className="flex-1 min-w-0">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur">
-                  <Car className="h-3.5 w-3.5 text-[hsl(293,67%,75%)]" />
-                  Empréstimo com veículo em garantia
-                </span>
-                <h1 className="font-display text-[1.85rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-3">
-                  Seu carro quitado pode ser{" "}
-                  <span className="brand-gradient-text">a solução</span>{" "}
-                  que você estava procurando.
-                </h1>
-              </div>
+            {/* On mobile: constrain text width so the person shows on the right */}
+            <h1 className="font-display text-[1.85rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-3
+                           max-w-[68%] sm:max-w-none lg:max-w-none">
+              Seu carro quitado pode ser{" "}
+              <span className="brand-gradient-text">a solução</span>{" "}
+              que você estava procurando.
+            </h1>
 
-              {/* Portrait image — MOBILE ONLY */}
-              <div className="lg:hidden shrink-0 w-[36%] max-w-[148px] pt-1">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50"
-                     style={{ aspectRatio: "3/4" }}>
-                  <img
-                    src="/images/hero-car-keys.webp"
-                    alt="Mulher sorrindo com chaves do carro"
-                    width={1200}
-                    height={800}
-                    fetchPriority="high"
-                    decoding="async"
-                    className="object-cover object-[42%_0%] w-full h-full"
-                  />
-                  {/* Left-blend: merges image edge into the dark background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[hsl(221,72%,10%)]/70 via-transparent to-transparent" />
-                </div>
-              </div>
-            </div>
-
-            {/* ── Rest of content (full width on mobile) ── */}
-            <p className="mt-4 text-[0.9rem] sm:text-lg text-white/80 leading-relaxed sm:max-w-xl">
+            <p className="mt-4 text-[0.9rem] sm:text-lg text-white/80 leading-relaxed
+                          max-w-[74%] sm:max-w-xl lg:max-w-xl">
               A F1 compara seu perfil em{" "}
               <strong className="text-white">Porto Bank, Banco BV, C6 Bank e Creditas</strong>{" "}
-              e apresenta a melhor proposta. Sem custo e sem compromisso.
+              e apresenta a melhor proposta. Sem custo.
             </p>
 
             <div className="mt-4 flex flex-col gap-2.5 text-sm text-white/85">
-              <div className="flex items-start gap-2.5">
+              <div className="flex items-start gap-2.5 max-w-[74%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito</span>
               </div>
-              <div className="flex items-start gap-2.5">
+              <div className="flex items-start gap-2.5 max-w-[74%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Prazos de <strong className="text-white">12 a 60 meses</strong>, com liberação em até 120% do valor do veículo</span>
               </div>
-              <div className="flex items-start gap-2.5">
+              <div className="flex items-start gap-2.5 max-w-[74%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Carros, SUVs e utilitários com <strong className="text-white">até 19 anos</strong> de fabricação</span>
               </div>
