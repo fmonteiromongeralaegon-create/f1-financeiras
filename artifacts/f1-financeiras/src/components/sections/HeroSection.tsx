@@ -7,7 +7,7 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden hero-gradient text-white">
 
-      {/* Background image — full-bleed on mobile with gradient overlay */}
+      {/* Background image — full-bleed on mobile, anchored right, horizontally flipped */}
       <div className="absolute inset-0 lg:hidden" aria-hidden="true">
         <img
           src="/images/hero-car-keys.webp"
@@ -16,10 +16,12 @@ export function HeroSection() {
           height={800}
           fetchPriority="high"
           decoding="async"
-          className="object-cover object-[60%_10%] w-full h-full"
+          className="object-cover object-[60%_20%] w-full h-full"
         />
-        {/* Overlay: transparent top shows person, opaque bottom keeps text legible */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(221,72%,12%)]/45 via-[hsl(221,72%,12%)]/82 to-[hsl(221,72%,10%)]" />
+        {/* Smoke from left: solid first 38%, fades out by 72%, transparent right edge */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[hsl(221,72%,10%)] from-[38%] via-[hsl(221,72%,10%)]/60 via-[58%] to-transparent to-[78%]" />
+        {/* Bottom reinforcement: CTAs always legible */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(221,72%,10%)] from-[0%] via-[hsl(221,72%,10%)]/50 via-[22%] to-transparent to-[45%]" />
       </div>
 
       <div className="container-f1 py-14 pb-16 lg:py-24 relative z-10">
@@ -37,20 +39,21 @@ export function HeroSection() {
               Empréstimo com veículo em garantia
             </span>
 
-            <h1 className="font-display text-[2rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-4">
+            {/* Text constrained to ~72% on mobile so person peeks from the right */}
+            <h1 className="font-display text-[2rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-4 max-w-[72%] sm:max-w-none">
               Seu carro quitado pode ser{" "}
               <span className="brand-gradient-text">a solução</span>{" "}
               que você estava procurando.
             </h1>
 
-            <p className="mt-4 text-[0.95rem] sm:text-lg text-white/80 leading-relaxed">
+            <p className="mt-4 text-[0.9rem] sm:text-lg text-white/80 leading-relaxed max-w-[76%] sm:max-w-xl">
               A F1 compara seu perfil em{" "}
-              <strong className="text-white">Porto Bank, Banco BV, C6 Bank e Creditas</strong>{" "}
-              simultaneamente e apresenta a melhor proposta. Sem custo e sem compromisso.
+              <strong className="text-white">Porto Bank, BV, C6 Bank e Creditas</strong>{" "}
+              e apresenta a melhor proposta. Sem custo.
             </p>
 
-            {/* Credential pills — mobile-friendly horizontal scroll on small screens */}
-            <div className="mt-5 flex flex-col gap-2.5 text-sm text-white/85">
+            {/* Credential pills */}
+            <div className="mt-5 flex flex-col gap-2.5 text-sm text-white/85 max-w-[80%] sm:max-w-none">
               <div className="flex items-start gap-2.5">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito</span>
