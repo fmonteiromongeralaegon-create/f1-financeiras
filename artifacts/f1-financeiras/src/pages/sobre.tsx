@@ -22,7 +22,7 @@ export default function Sobre() {
           </div>
         </div>
 
-        <section className="py-16">
+        <section className="pt-2 pb-16">
           <div className="container-f1 max-w-3xl mx-auto">
 
             <div className="prose max-w-none">

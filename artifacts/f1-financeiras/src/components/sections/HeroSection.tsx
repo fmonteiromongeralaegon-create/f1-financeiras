@@ -6,8 +6,26 @@ import { Link } from "wouter";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden hero-gradient text-white">
-      <div className="container-f1 py-16 lg:py-24 relative z-10">
+
+      {/* Background image — full-bleed on mobile with gradient overlay */}
+      <div className="absolute inset-0 lg:hidden" aria-hidden="true">
+        <img
+          src="/images/hero-car-keys.webp"
+          alt=""
+          width={1200}
+          height={800}
+          fetchPriority="high"
+          decoding="async"
+          className="object-cover object-[60%_10%] w-full h-full"
+        />
+        {/* Overlay: transparent top shows person, opaque bottom keeps text legible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(221,72%,12%)]/45 via-[hsl(221,72%,12%)]/82 to-[hsl(221,72%,10%)]" />
+      </div>
+
+      <div className="container-f1 py-14 pb-16 lg:py-24 relative z-10">
         <div className="grid lg:grid-cols-12 gap-10 items-stretch">
+
+          {/* Main content */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -18,32 +36,36 @@ export function HeroSection() {
               <Car className="h-3.5 w-3.5 text-[hsl(293,67%,75%)]" />
               Empréstimo com veículo em garantia
             </span>
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mt-4">
+
+            <h1 className="font-display text-[2rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-4">
               Seu carro quitado pode ser{" "}
-              <span className="brand-gradient-text">a solução</span> que você estava procurando.
+              <span className="brand-gradient-text">a solução</span>{" "}
+              que você estava procurando.
             </h1>
-            <p className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
-              A F1 compara o seu perfil em{" "}
+
+            <p className="mt-4 text-[0.95rem] sm:text-lg text-white/80 leading-relaxed">
+              A F1 compara seu perfil em{" "}
               <strong className="text-white">Porto Bank, Banco BV, C6 Bank e Creditas</strong>{" "}
-              simultaneamente e apresenta a melhor proposta de empréstimo com
-              garantia do seu veículo. Sem custo inicial e sem compromisso.
+              simultaneamente e apresenta a melhor proposta. Sem custo e sem compromisso.
             </p>
 
-            <ul className="mt-6 space-y-2.5 text-sm text-white/85">
-              <li className="flex items-start gap-2">
+            {/* Credential pills — mobile-friendly horizontal scroll on small screens */}
+            <div className="mt-5 flex flex-col gap-2.5 text-sm text-white/85">
+              <div className="flex items-start gap-2.5">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
-                Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito
-              </li>
-              <li className="flex items-start gap-2">
+                <span>Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito</span>
+              </div>
+              <div className="flex items-start gap-2.5">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
-                Prazos de <strong className="text-white">12 a 60 meses</strong> com liberação em até 120% do valor do veículo
-              </li>
-              <li className="flex items-start gap-2">
+                <span>Prazos de <strong className="text-white">12 a 60 meses</strong>, com liberação em até 120% do valor do veículo</span>
+              </div>
+              <div className="flex items-start gap-2.5">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
-                Aceita carros, SUVs e utilitários com até 19 anos de fabricação
-              </li>
-            </ul>
+                <span>Carros, SUVs e utilitários com <strong className="text-white">até 19 anos</strong> de fabricação</span>
+              </div>
+            </div>
 
+            {/* CTAs */}
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
               <Button
                 asChild
@@ -62,18 +84,26 @@ export function HeroSection() {
               </Button>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/60">
+            {/* Trust badges */}
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/55">
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5" />
+                <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
                 Correspondente bancário (Res. 3.954/2011)
               </div>
               <div className="flex items-center gap-1.5">
-                <Landmark className="h-3.5 w-3.5" />
+                <Landmark className="h-3.5 w-3.5 shrink-0" />
                 Parceiros regulados pelo Banco Central
               </div>
             </div>
+
+            {/* Mobile-only: approval strip — shown inline below trust badges */}
+            <div className="lg:hidden mt-5 flex items-center gap-2 rounded-lg bg-white/8 border border-white/10 px-4 py-3 text-xs text-white/80">
+              <Clock className="h-3.5 w-3.5 text-[hsl(293,67%,75%)] shrink-0" />
+              <span>Aprovação em até <strong className="text-white">24h úteis</strong> · Seu carro continua com você</span>
+            </div>
           </motion.div>
 
+          {/* Desktop-only: image panel */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -105,6 +135,7 @@ export function HeroSection() {
               </div>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>
