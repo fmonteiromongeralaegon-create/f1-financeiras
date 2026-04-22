@@ -7,54 +7,59 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden hero-gradient text-white">
 
-      {/* Background image — full-bleed on mobile, anchored right, horizontally flipped */}
-      <div className="absolute inset-0 lg:hidden" aria-hidden="true">
-        <img
-          src="/images/hero-car-keys.webp"
-          alt=""
-          width={1200}
-          height={800}
-          fetchPriority="high"
-          decoding="async"
-          className="object-cover object-[50%_0%] w-full h-full"
-          style={{ transform: "scaleX(-1)" }}
-        />
-        {/* Top area transparent so face shows above text; builds up opacity where text is */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[12%] via-[hsl(221,72%,10%)]/55 via-[32%] to-[hsl(221,72%,10%)] to-[65%]" />
-        {/* Right edge stays visible — person on right peeks through */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[hsl(221,72%,10%)] from-[40%] via-[hsl(221,72%,10%)]/50 via-[60%] to-transparent to-[80%]" />
-      </div>
-
-      <div className="container-f1 pt-28 pb-14 lg:py-24 relative z-10">
+      <div className="container-f1 pt-10 pb-12 lg:py-24 relative z-10">
         <div className="grid lg:grid-cols-12 gap-10 items-stretch">
 
-          {/* Main content */}
+          {/* ── Main content ── */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="lg:col-span-7"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur">
-              <Car className="h-3.5 w-3.5 text-[hsl(293,67%,75%)]" />
-              Empréstimo com veículo em garantia
-            </span>
+            {/* ── MOBILE: two-column row — text left, portrait image right ── */}
+            <div className="flex items-start gap-3 lg:block">
 
-            {/* Text constrained to ~72% on mobile so person peeks from the right */}
-            <h1 className="font-display text-[2rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-4 max-w-[72%] sm:max-w-none">
-              Seu carro quitado pode ser{" "}
-              <span className="brand-gradient-text">a solução</span>{" "}
-              que você estava procurando.
-            </h1>
+              {/* Text column */}
+              <div className="flex-1 min-w-0">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur">
+                  <Car className="h-3.5 w-3.5 text-[hsl(293,67%,75%)]" />
+                  Empréstimo com veículo em garantia
+                </span>
+                <h1 className="font-display text-[1.85rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-3">
+                  Seu carro quitado pode ser{" "}
+                  <span className="brand-gradient-text">a solução</span>{" "}
+                  que você estava procurando.
+                </h1>
+              </div>
 
-            <p className="mt-4 text-[0.9rem] sm:text-lg text-white/80 leading-relaxed max-w-[76%] sm:max-w-xl">
+              {/* Portrait image — MOBILE ONLY */}
+              <div className="lg:hidden shrink-0 w-[36%] max-w-[148px] pt-1">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50"
+                     style={{ aspectRatio: "3/4" }}>
+                  <img
+                    src="/images/hero-car-keys.webp"
+                    alt="Mulher sorrindo com chaves do carro"
+                    width={1200}
+                    height={800}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="object-cover object-[42%_0%] w-full h-full"
+                  />
+                  {/* Left-blend: merges image edge into the dark background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[hsl(221,72%,10%)]/70 via-transparent to-transparent" />
+                </div>
+              </div>
+            </div>
+
+            {/* ── Rest of content (full width on mobile) ── */}
+            <p className="mt-4 text-[0.9rem] sm:text-lg text-white/80 leading-relaxed sm:max-w-xl">
               A F1 compara seu perfil em{" "}
-              <strong className="text-white">Porto Bank, BV, C6 Bank e Creditas</strong>{" "}
-              e apresenta a melhor proposta. Sem custo.
+              <strong className="text-white">Porto Bank, Banco BV, C6 Bank e Creditas</strong>{" "}
+              e apresenta a melhor proposta. Sem custo e sem compromisso.
             </p>
 
-            {/* Credential pills */}
-            <div className="mt-5 flex flex-col gap-2.5 text-sm text-white/85 max-w-[80%] sm:max-w-none">
+            <div className="mt-4 flex flex-col gap-2.5 text-sm text-white/85">
               <div className="flex items-start gap-2.5">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito</span>
@@ -69,8 +74,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* CTAs */}
-            <div className="mt-7 flex flex-col sm:flex-row gap-3">
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Button
                 asChild
                 size="lg"
@@ -88,7 +92,6 @@ export function HeroSection() {
               </Button>
             </div>
 
-            {/* Trust badges */}
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/55">
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
@@ -100,14 +103,13 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Mobile-only: approval strip — shown inline below trust badges */}
-            <div className="lg:hidden mt-5 flex items-center gap-2 rounded-lg bg-white/8 border border-white/10 px-4 py-3 text-xs text-white/80">
+            <div className="lg:hidden mt-4 flex items-center gap-2 rounded-lg bg-white/8 border border-white/10 px-4 py-2.5 text-xs text-white/80">
               <Clock className="h-3.5 w-3.5 text-[hsl(293,67%,75%)] shrink-0" />
               <span>Aprovação em até <strong className="text-white">24h úteis</strong> · Seu carro continua com você</span>
             </div>
           </motion.div>
 
-          {/* Desktop-only: image panel */}
+          {/* ── Desktop-only: image panel ── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
