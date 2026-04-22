@@ -16,15 +16,16 @@ export function HeroSection() {
           height={800}
           fetchPriority="high"
           decoding="async"
-          className="object-cover object-[60%_20%] w-full h-full"
+          className="object-cover object-[50%_0%] w-full h-full"
+          style={{ transform: "scaleX(-1)" }}
         />
-        {/* Smoke from left: solid first 38%, fades out by 72%, transparent right edge */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[hsl(221,72%,10%)] from-[38%] via-[hsl(221,72%,10%)]/60 via-[58%] to-transparent to-[78%]" />
-        {/* Bottom reinforcement: CTAs always legible */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(221,72%,10%)] from-[0%] via-[hsl(221,72%,10%)]/50 via-[22%] to-transparent to-[45%]" />
+        {/* Top area transparent so face shows above text; builds up opacity where text is */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[12%] via-[hsl(221,72%,10%)]/55 via-[32%] to-[hsl(221,72%,10%)] to-[65%]" />
+        {/* Right edge stays visible — person on right peeks through */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[hsl(221,72%,10%)] from-[40%] via-[hsl(221,72%,10%)]/50 via-[60%] to-transparent to-[80%]" />
       </div>
 
-      <div className="container-f1 py-14 pb-16 lg:py-24 relative z-10">
+      <div className="container-f1 pt-28 pb-14 lg:py-24 relative z-10">
         <div className="grid lg:grid-cols-12 gap-10 items-stretch">
 
           {/* Main content */}
