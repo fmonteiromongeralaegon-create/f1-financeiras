@@ -22,19 +22,19 @@ export function HeroSection() {
           height={855}
           fetchPriority="high"
           decoding="async"
-          className="object-cover object-[8%_0%] w-full h-full"
-          style={{ transform: "scale(1.10) translateY(-4%)", transformOrigin: "center center" }}
+          className="object-cover object-[18%_0%] w-full h-full"
+          style={{ transform: "scale(1.06) translateY(3%)", transformOrigin: "center top" }}
         />
         {/* Smoke da esquerda — texto legível, mulher aparece na borda direita */}
         <div className="absolute inset-0 bg-gradient-to-r
           from-[hsl(221,72%,10%)]        from-[0%]
           via-[hsl(221,72%,10%)]/85      via-[38%]
           to-transparent                 to-[78%]" />
-        {/* Reforço na base para os CTAs */}
+        {/* Reforço mínimo na base — só cobre a área dos botões, não o corpo */}
         <div className="absolute inset-0 bg-gradient-to-t
           from-[hsl(221,72%,10%)]        from-[0%]
-          via-[hsl(221,72%,10%)]/50      via-[22%]
-          to-transparent                 to-[45%]" />
+          via-[hsl(221,72%,10%)]/55      via-[12%]
+          to-transparent                 to-[25%]" />
       </div>
 
       <div className="container-f1 pt-10 pb-14 lg:py-24 relative z-10">
