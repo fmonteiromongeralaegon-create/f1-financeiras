@@ -24,7 +24,7 @@ export function HeroV4() {
               <img
                 src="/__mockup/images/hero-car-keys.webp"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: "42% 0%" }}
+                style={{ objectPosition: "47% 0%" }}
                 alt=""
               />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(14,22,54,0.70), transparent)" }} />

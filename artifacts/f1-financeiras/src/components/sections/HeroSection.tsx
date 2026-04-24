@@ -9,33 +9,31 @@ export function HeroSection() {
 
       {/* ── MOBILE: full-bleed background image ── */}
       {/*
-          The original image has the person centered at x≈42% of 1200px.
-          After scaling to fill height (1125×750), she sits at x≈472px.
-          With object-[55%_0%], the visible window is 404–794px of the scaled image.
-          She appears at (472-404)/390 ≈ 17% from the LEFT inside the window.
-          scaleX(-1) then mirrors her to 100%-17% = 83% from the LEFT → right edge.
+          New image: 848×1233px portrait. Person face at x≈47%, y≈22%.
+          Scaled to fill 390×750 container: scale=750/1233=0.608, width=516px (126px overflow).
+          object-[48%_0%] anchors face horizontally, top of image first.
+          No flip needed — person faces camera from the center.
       */}
       <div className="absolute inset-0 lg:hidden" aria-hidden="true">
         <img
           src="/images/hero-car-keys.webp"
           alt=""
-          width={1200}
-          height={800}
+          width={848}
+          height={1233}
           fetchPriority="high"
           decoding="async"
-          className="object-cover object-[55%_0%] w-full h-full"
-          style={{ transform: "scaleX(-1)" }}
+          className="object-cover object-[48%_0%] w-full h-full"
         />
-        {/* Left smoke: solid navy → fades out toward right where person appears */}
+        {/* Left smoke: portrait image — fade starts earlier so person at x≈47% is visible */}
         <div className="absolute inset-0 bg-gradient-to-r
           from-[hsl(221,72%,10%)]        from-[0%]
-          via-[hsl(221,72%,10%)]/85      via-[42%]
-          to-transparent                 to-[78%]" />
+          via-[hsl(221,72%,10%)]/80      via-[32%]
+          to-transparent                 to-[65%]" />
         {/* Bottom reinforcement so CTAs stay legible */}
         <div className="absolute inset-0 bg-gradient-to-t
           from-[hsl(221,72%,10%)]        from-[0%]
-          via-[hsl(221,72%,10%)]/60      via-[18%]
-          to-transparent                 to-[38%]" />
+          via-[hsl(221,72%,10%)]/65      via-[20%]
+          to-transparent                 to-[42%]" />
       </div>
 
       <div className="container-f1 pt-10 pb-14 lg:py-24 relative z-10">
@@ -55,29 +53,29 @@ export function HeroSection() {
 
             {/* On mobile: constrain text width so the person shows on the right */}
             <h1 className="font-display text-[1.85rem] leading-[1.15] sm:text-4xl lg:text-5xl font-bold mt-3
-                           max-w-[68%] sm:max-w-none lg:max-w-none">
+                           max-w-[62%] sm:max-w-none lg:max-w-none">
               Seu carro quitado pode ser{" "}
               <span className="brand-gradient-text">a solução</span>{" "}
               que você estava procurando.
             </h1>
 
             <p className="mt-4 text-[0.9rem] sm:text-lg text-white/80 leading-relaxed
-                          max-w-[74%] sm:max-w-xl lg:max-w-xl">
+                          max-w-[65%] sm:max-w-xl lg:max-w-xl">
               A F1 compara seu perfil em{" "}
               <strong className="text-white">Porto Bank, Banco BV, C6 Bank e Creditas</strong>{" "}
               e apresenta a melhor proposta. Sem custo.
             </p>
 
             <div className="mt-4 flex flex-col gap-2.5 text-sm text-white/85">
-              <div className="flex items-start gap-2.5 max-w-[74%] sm:max-w-none">
+              <div className="flex items-start gap-2.5 max-w-[65%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito</span>
               </div>
-              <div className="flex items-start gap-2.5 max-w-[74%] sm:max-w-none">
+              <div className="flex items-start gap-2.5 max-w-[65%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Prazos de <strong className="text-white">12 a 60 meses</strong>, com liberação em até 120% do valor do veículo</span>
               </div>
-              <div className="flex items-start gap-2.5 max-w-[74%] sm:max-w-none">
+              <div className="flex items-start gap-2.5 max-w-[65%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
                 <span>Carros, SUVs e utilitários com <strong className="text-white">até 19 anos</strong> de fabricação</span>
               </div>
@@ -128,9 +126,9 @@ export function HeroSection() {
             <div className="relative flex-1 min-h-[420px] rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
               <img
                 src="/images/hero-car-keys.webp"
-                alt="Chaves de carro — empréstimo com garantia de veículo"
-                width={1200}
-                height={800}
+                alt="Mulher com celular em frente a carro — empréstimo com garantia de veículo"
+                width={848}
+                height={1233}
                 fetchPriority="high"
                 decoding="async"
                 className="object-cover w-full h-full absolute inset-0"

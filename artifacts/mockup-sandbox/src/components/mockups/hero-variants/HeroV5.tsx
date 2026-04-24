@@ -6,7 +6,7 @@ export function HeroV5() {
         <img
           src="/__mockup/images/hero-car-keys.webp"
           className="w-full h-full object-cover"
-          style={{ objectPosition: "55% 0%", transform: "scaleX(-1)" }}
+          style={{ objectPosition: "47% 0%" }}
           alt=""
         />
         {/* Left smoke: text legível, pessoa visível à direita */}
