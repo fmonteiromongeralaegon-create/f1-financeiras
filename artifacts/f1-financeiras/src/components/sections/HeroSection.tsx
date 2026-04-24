@@ -19,10 +19,10 @@ export function HeroSection() {
           src="/images/hero-car-keys.webp"
           alt=""
           width={848}
-          height={1233}
+          height={855}
           fetchPriority="high"
           decoding="async"
-          className="object-cover object-[48%_0%] w-full h-full"
+          className="object-cover object-[20%_0%] w-full h-full"
         />
         {/* Left smoke: portrait image — fade starts earlier so person at x≈47% is visible */}
         <div className="absolute inset-0 bg-gradient-to-r
@@ -128,7 +128,7 @@ export function HeroSection() {
                 src="/images/hero-car-keys.webp"
                 alt="Mulher com celular em frente a carro — empréstimo com garantia de veículo"
                 width={848}
-                height={1233}
+                height={855}
                 fetchPriority="high"
                 decoding="async"
                 className="object-cover w-full h-full absolute inset-0"

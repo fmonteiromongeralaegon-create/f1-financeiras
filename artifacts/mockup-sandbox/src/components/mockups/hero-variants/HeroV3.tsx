@@ -6,7 +6,7 @@ export function HeroV3() {
         <img
           src="/__mockup/images/hero-car-keys.webp"
           className="w-full h-full object-cover"
-          style={{ objectPosition: "47% 0%" }}
+          style={{ objectPosition: "25% 0%" }}
           alt=""
         />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 12%, rgba(14,22,54,0.55) 32%, hsl(221 72% 10%) 65%)" }} />

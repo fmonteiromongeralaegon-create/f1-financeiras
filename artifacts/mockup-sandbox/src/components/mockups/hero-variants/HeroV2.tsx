@@ -8,7 +8,7 @@ export function HeroV2() {
           className="w-full h-full object-cover"
           style={{
             objectPosition: "8% 0%",
-            transform: "scale(1.18) translateY(-6%)",
+            transform: "scale(1.10) translateY(-4%)",
             transformOrigin: "center center",
           }}
           alt=""
