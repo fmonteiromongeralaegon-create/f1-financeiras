@@ -9,10 +9,10 @@ export function HeroSection() {
 
       {/* ── MOBILE: full-bleed background image ── */}
       {/*
-          New image: 848×1233px portrait. Person face at x≈47%, y≈22%.
-          Scaled to fill 390×750 container: scale=750/1233=0.608, width=516px (126px overflow).
-          object-[48%_0%] anchors face horizontally, top of image first.
-          No flip needed — person faces camera from the center.
+          Image: 848×855px (near-square). Container 390×844px.
+          Scale by height: 844/855=0.987 → width=837px, overflow=447px.
+          object-[8%_0%]: offset=36px → woman (at x=376px scaled) lands at 87% from left.
+          scale(1.10) translateY(-4%): zoom in 10%, crop 4% from top → less house, more body.
       */}
       <div className="absolute inset-0 lg:hidden" aria-hidden="true">
         <img
@@ -22,18 +22,19 @@ export function HeroSection() {
           height={855}
           fetchPriority="high"
           decoding="async"
-          className="object-cover object-[20%_0%] w-full h-full"
+          className="object-cover object-[8%_0%] w-full h-full"
+          style={{ transform: "scale(1.10) translateY(-4%)", transformOrigin: "center center" }}
         />
-        {/* Left smoke: portrait image — fade starts earlier so person at x≈47% is visible */}
+        {/* Smoke da esquerda — texto legível, mulher aparece na borda direita */}
         <div className="absolute inset-0 bg-gradient-to-r
           from-[hsl(221,72%,10%)]        from-[0%]
-          via-[hsl(221,72%,10%)]/80      via-[32%]
-          to-transparent                 to-[65%]" />
-        {/* Bottom reinforcement so CTAs stay legible */}
+          via-[hsl(221,72%,10%)]/85      via-[38%]
+          to-transparent                 to-[78%]" />
+        {/* Reforço na base para os CTAs */}
         <div className="absolute inset-0 bg-gradient-to-t
           from-[hsl(221,72%,10%)]        from-[0%]
-          via-[hsl(221,72%,10%)]/65      via-[20%]
-          to-transparent                 to-[42%]" />
+          via-[hsl(221,72%,10%)]/50      via-[22%]
+          to-transparent                 to-[45%]" />
       </div>
 
       <div className="container-f1 pt-10 pb-14 lg:py-24 relative z-10">
