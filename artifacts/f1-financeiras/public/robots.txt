@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.f1solucoesfinanceiras.com.br/sitemap.xml
+Sitemap: https://www.f1solucoesveiculogarantia.com.br/sitemap.xml
