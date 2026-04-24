@@ -29,12 +29,12 @@ export function PartnersTable() {
               transition={{ duration: 0.35, delay: i * 0.05 }}
               className="rounded-xl bg-white p-6 shadow-card hover:shadow-card-lg transition-shadow flex flex-col"
             >
-              <div className="relative h-12 w-40 mb-4">
+              <div className="relative h-16 w-40 mb-4">
                 <img
                   src={p.logo}
                   alt={`Logo ${p.name}`}
                   width={160}
-                  height={48}
+                  height={64}
                   loading="lazy"
                   decoding="async"
                   className="object-contain object-left h-full w-full"

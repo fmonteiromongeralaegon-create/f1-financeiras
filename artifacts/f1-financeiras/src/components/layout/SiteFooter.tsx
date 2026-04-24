@@ -118,7 +118,7 @@ export function SiteFooter() {
                 <img
                   src={p.logo}
                   alt={p.name}
-                  className="object-contain w-auto max-w-[90px] h-5"
+                  className={`object-contain w-auto max-w-[90px] ${p.slug === "bv" ? "h-8" : "h-5"}`}
                 />
               </div>
             ))}
