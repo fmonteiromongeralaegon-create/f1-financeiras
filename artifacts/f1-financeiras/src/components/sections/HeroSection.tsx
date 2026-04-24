@@ -63,7 +63,7 @@ export function HeroSection() {
             <p className="mt-4 text-[0.9rem] sm:text-lg text-white/80 leading-relaxed
                           max-w-[65%] sm:max-w-xl lg:max-w-xl">
               A F1 compara seu perfil em{" "}
-              <strong className="text-white">Porto Bank, Banco BV, C6 Bank e Creditas</strong>{" "}
+              <strong className="text-white">Porto Bank, Banco BV e C6 Bank</strong>{" "}
               e apresenta a melhor proposta. Sem custo.
             </p>
 
@@ -144,7 +144,7 @@ export function HeroSection() {
                   Seu carro continua com você.
                 </p>
                 <p className="text-xs text-[hsl(221,15%,50%)] mt-1">
-                  Sem custo para simular · Resposta rápida dos 4 bancos
+                  Sem custo para simular · Resposta rápida dos 3 bancos
                 </p>
               </div>
             </div>

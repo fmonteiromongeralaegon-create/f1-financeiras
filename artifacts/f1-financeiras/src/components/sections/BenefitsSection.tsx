@@ -24,8 +24,8 @@ const BENEFITS = [
   },
   {
     icon: Handshake,
-    title: "4 bancos analisando seu perfil ao mesmo tempo",
-    text: "Porto Bank, Banco BV, C6 Bank e Creditas — todos regulados pelo Banco Central — analisam sua proposta simultaneamente. Mais chances de aprovação, melhor oferta.",
+    title: "3 bancos analisando seu perfil ao mesmo tempo",
+    text: "Porto Bank, Banco BV e C6 Bank — todos regulados pelo Banco Central — analisam sua proposta simultaneamente. Mais chances de aprovação, melhor oferta.",
   },
   {
     icon: ThumbsUp,

@@ -358,7 +358,7 @@ export function EligibilityQuiz() {
                     Solicitação enviada!
                   </h3>
                   <p className="text-sm text-[hsl(221,15%,40%)] leading-relaxed mb-6 max-w-sm mx-auto">
-                    Um consultor vai analisar seu perfil nos 4 bancos parceiros e entrar em contato
+                    Um consultor vai analisar seu perfil nos 3 bancos parceiros e entrar em contato
                     em instantes pelo WhatsApp.
                   </p>
                   <a

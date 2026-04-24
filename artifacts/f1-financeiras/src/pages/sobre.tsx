@@ -43,10 +43,10 @@ export default function Sobre() {
               <p className="text-[hsl(221,15%,35%)] leading-relaxed mb-4">
                 Atuamos como Correspondente Bancário, uma atividade regulamentada pelo Banco Central do Brasil
                 (Resolução CMN nº 3.954/2011). Isso significa que não somos um banco, mas sim uma ponte oficial
-                entre você e grandes instituições como Porto Bank, Banco BV, C6 Bank e Creditas.
+                entre você e grandes instituições como Porto Bank, Banco BV e C6 Bank.
               </p>
               <p className="text-[hsl(221,15%,35%)] leading-relaxed mb-8">
-                Nossa equipe analisa seu perfil simultaneamente nas quatro instituições parceiras, garantindo que
+                Nossa equipe analisa seu perfil simultaneamente nas três instituições parceiras, garantindo que
                 você tenha acesso à menor taxa disponível no mercado naquele momento.
               </p>
 

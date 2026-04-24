@@ -20,7 +20,7 @@ export default function TermosDeUso() {
               A F1 Soluções Financeiras atua exclusivamente como Correspondente Bancário, nos termos da Resolução nº 3.954/2011 do Conselho Monetário Nacional (CMN). Não somos uma instituição financeira, não realizamos operações de crédito diretamente e não cobramos quaisquer valores antecipados dos clientes.
             </p>
             <p>
-              Nosso serviço consiste na intermediação de produtos financeiros entre os usuários e as instituições financeiras parceiras (Porto Bank, Banco BV, C6 Bank e Creditas).
+              Nosso serviço consiste na intermediação de produtos financeiros entre os usuários e as instituições financeiras parceiras (Porto Bank, Banco BV e C6 Bank).
             </p>
 
             <h3 className="text-xl font-display font-bold text-foreground mt-8 mb-4">2. Simulações e Propostas</h3>

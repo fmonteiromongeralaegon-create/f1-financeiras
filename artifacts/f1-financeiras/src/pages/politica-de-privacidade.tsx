@@ -38,7 +38,7 @@ export default function PoliticaDePrivacidade() {
 
             <h3 className="text-xl font-display font-bold text-foreground mt-8 mb-4">3. Com Quem Compartilhamos</h3>
             <p>
-              Como correspondente bancário, para que a análise de crédito seja realizada, precisamos compartilhar seus dados com as instituições financeiras parceiras (Porto Bank, Banco BV, C6 Bank, Creditas). Estas instituições também possuem suas próprias políticas de privacidade e estão sujeitas à LGPD.
+              Como correspondente bancário, para que a análise de crédito seja realizada, precisamos compartilhar seus dados com as instituições financeiras parceiras (Porto Bank, Banco BV e C6 Bank). Estas instituições também possuem suas próprias políticas de privacidade e estão sujeitas à LGPD.
             </p>
             <p>
               Nunca vendemos ou comercializamos seus dados com terceiros não envolvidos na operação de crédito solicitada por você.

@@ -62,18 +62,6 @@ export const PARTNERS: Partner[] = [
       'Auditoria independente (Big Four)',
     ],
   },
-  {
-    name: 'Creditas',
-    slug: 'creditas',
-    logo: '/images/partner-creditas.webp',
-    note: 'Maior fintech de crédito com garantia da América Latina — foco em juros justos e processo digital.',
-    strengths: [
-      'Fundada em 2012',
-      'Supervisionada pelo Banco Central',
-      'Investidores globais (Softbank, Kaszek)',
-      'Selo RA1000 no Reclame Aqui',
-    ],
-  },
 ]
 
 export const COMPLIANCE = {

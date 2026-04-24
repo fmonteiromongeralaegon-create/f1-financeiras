@@ -10,8 +10,8 @@ const STEPS = [
   {
     n: "02",
     img: "/images/step-approval.webp",
-    title: "Comparação em 4 bancos",
-    text: "Nossa equipe encaminha sua proposta para Porto Bank, BV, C6 Bank e Creditas ao mesmo tempo. Você recebe a melhor condição disponível para o seu perfil — geralmente no mesmo dia.",
+    title: "Comparação em 3 bancos",
+    text: "Nossa equipe encaminha sua proposta para Porto Bank, BV e C6 Bank ao mesmo tempo. Você recebe a melhor condição disponível para o seu perfil — geralmente no mesmo dia.",
   },
   {
     n: "03",
