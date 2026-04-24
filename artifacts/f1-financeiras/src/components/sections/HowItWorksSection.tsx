@@ -47,7 +47,7 @@ export function HowItWorksSection() {
               transition={{ duration: 0.4, delay: i * 0.1 }}
               className="relative rounded-xl bg-white p-6 shadow-card"
             >
-              <div className="relative h-52 rounded-lg overflow-hidden mb-4">
+              <div className="relative h-52 rounded-lg overflow-hidden mb-4 bg-white flex items-center justify-center">
                 <img
                   src={s.img}
                   alt={`Passo ${s.n}: ${s.title}`}
@@ -55,7 +55,7 @@ export function HowItWorksSection() {
                   height={800}
                   loading="lazy"
                   decoding="async"
-                  className="object-cover object-center w-full h-full"
+                  className="object-contain w-full h-full p-3"
                 />
               </div>
               <div className="font-mono text-xs font-semibold text-[hsl(268,63%,46%)]">PASSO {s.n}</div>
