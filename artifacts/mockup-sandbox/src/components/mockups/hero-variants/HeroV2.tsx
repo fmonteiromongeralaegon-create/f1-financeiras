@@ -6,7 +6,11 @@ export function HeroV2() {
         <img
           src="/__mockup/images/hero-car-keys.webp"
           className="w-full h-full object-cover"
-          style={{ objectPosition: "47% 0%" }}
+          style={{
+            objectPosition: "8% 0%",
+            transform: "scale(1.18) translateY(-6%)",
+            transformOrigin: "center center",
+          }}
           alt=""
         />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, hsl(221 72% 10%) 0%, hsl(221 72% 10%) 38%, rgba(14,22,54,0.60) 58%, transparent 78%)" }} />
@@ -17,17 +21,17 @@ export function HeroV2() {
         <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium mb-4" style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(8px)" }}>
           🚗 Empréstimo com veículo em garantia
         </div>
-        <h1 className="text-[1.85rem] leading-tight font-bold mb-4">
+        <h1 className="text-[1.85rem] leading-tight font-bold mb-4" style={{ maxWidth: "64%" }}>
           Seu carro quitado pode ser{" "}
           <span style={{ background: "linear-gradient(135deg, hsl(268 63% 66%), hsl(293 67% 69%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             a solução
           </span>{" "}
           que você estava procurando.
         </h1>
-        <p className="text-sm opacity-80 mb-4 leading-relaxed">
+        <p className="text-sm opacity-80 mb-4 leading-relaxed" style={{ maxWidth: "66%" }}>
           A F1 compara seu perfil em <strong className="text-white">Porto Bank, BV, C6 Bank e Creditas</strong> e apresenta a melhor proposta. Sem custo.
         </p>
-        <div className="flex flex-col gap-2 text-sm opacity-85 mb-6">
+        <div className="flex flex-col gap-2 text-sm opacity-85 mb-6" style={{ maxWidth: "66%" }}>
           <div className="flex items-start gap-2">✅ Taxas a partir de <strong>1,49% a.m.</strong></div>
           <div className="flex items-start gap-2">✅ Prazos de <strong>12 a 60 meses</strong></div>
           <div className="flex items-start gap-2">✅ Veículos com <strong>até 19 anos</strong></div>
