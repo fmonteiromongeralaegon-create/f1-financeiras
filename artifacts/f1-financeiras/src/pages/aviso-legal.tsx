@@ -40,7 +40,7 @@ export default function AvisoLegal() {
             <ul className="list-disc pl-6 space-y-2">
               <li>Prazo de pagamento: de 12 a 60 meses.</li>
               <li>Período mínimo de reembolso garantido: 61 dias.</li>
-              <li>Taxa de juros a partir de 1,44% ao mês.</li>
+              <li>Taxa de juros a partir de 1,49% ao mês.</li>
               <li>Taxa Anual Efetiva (TAE) máxima: 42% a.a. (3,47% a.m.), tendo como referência as condições do Banco BV.</li>
             </ul>
 
