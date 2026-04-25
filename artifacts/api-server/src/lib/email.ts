@@ -7,7 +7,7 @@ import { logger } from "./logger";
 // While the Resend account domain is unverified, emails can only go to
 // the account owner's address. Verify f1solucoesveiculogarantia.com.br
 // at resend.com/domains to unlock sending to any recipient.
-const DEST_EMAIL = process.env.PROPOSTA_DEST_EMAIL ?? "flavios.monteiro@hotmail.com";
+const DEST_EMAIL = process.env.PROPOSTA_DEST_EMAIL ?? "fmonteiromongeralaegon@gmail.com";
 
 const BANK_LABELS: Record<string, string> = {
   "porto-bank": "Porto Bank",
