@@ -25,7 +25,32 @@ app.use(
     },
   }),
 );
-app.use(cors());
+const ALLOWED_ORIGINS = [
+  "https://www.f1solucoesveiculogarantia.com.br",
+  "https://f1solucoesveiculogarantia.com.br",
+  /\.vercel\.app$/,
+  /\.replit\.app$/,
+  /\.replit\.dev$/,
+  /localhost(:\d+)?$/,
+  /127\.0\.0\.1(:\d+)?$/,
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      const allowed = ALLOWED_ORIGINS.some((pattern) =>
+        typeof pattern === "string" ? pattern === origin : pattern.test(origin)
+      );
+      if (allowed) return callback(null, true);
+      logger.warn({ origin }, "CORS blocked origin");
+      callback(new Error(`CORS: origin not allowed — ${origin}`));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

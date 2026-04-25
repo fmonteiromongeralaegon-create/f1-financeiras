@@ -49,6 +49,7 @@ const QUESTIONS = [
 export function EligibilityQuiz() {
   const [step, setStep] = useState<QuizStep>(0);
   const [blockedMsg, setBlockedMsg] = useState<string | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
   const [quizData, setQuizData] = useState({
     vehiclePaid: null as boolean | null,
     vehicleAgeOk: null as boolean | null,
@@ -98,7 +99,11 @@ export function EligibilityQuiz() {
       },
       {
         onSuccess: () => { window.location.href = "/obrigado"; },
-        onError: () => { setStep(3); },
+        onError: (err: unknown) => {
+          const msg =
+            err instanceof Error ? err.message : "Erro ao enviar. Tente novamente.";
+          setApiError(msg);
+        },
       }
     );
   };
@@ -320,12 +325,19 @@ export function EligibilityQuiz() {
                           </FormItem>
                         )}
                       />
+                      {apiError && (
+                        <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                          <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
+                          <span>{apiError}</span>
+                        </div>
+                      )}
                       <Button
                         type="submit"
                         size="lg"
                         className="w-full h-14 text-base font-semibold bg-[hsl(268,63%,46%)] hover:bg-[hsl(268,63%,40%)] text-white mt-2"
                         disabled={submitLead.isPending}
                         data-testid="button-submit-simulation"
+                        onClick={() => setApiError(null)}
                       >
                         {submitLead.isPending ? "Enviando..." : (
                           <>
