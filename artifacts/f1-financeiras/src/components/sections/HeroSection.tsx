@@ -70,11 +70,11 @@ export function HeroSection() {
             <div className="mt-4 flex flex-col gap-2.5 text-sm text-white/85">
               <div className="flex items-start gap-2.5 max-w-[65%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
-                <span>Taxas a partir de <strong className="text-white">1,49% a.m.</strong>, sujeito à análise de crédito</span>
+                <span>Três bancos competindo pela melhor condição para o seu perfil</span>
               </div>
               <div className="flex items-start gap-2.5 max-w-[65%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
-                <span>Prazos de <strong className="text-white">12 a 60 meses</strong>, com liberação em até 120% do valor do veículo</span>
+                <span>Prazos de <strong className="text-white">12 a 60 meses</strong>, sem surpresas</span>
               </div>
               <div className="flex items-start gap-2.5 max-w-[65%] sm:max-w-none">
                 <CheckCircle2 className="h-4 w-4 mt-0.5 text-[hsl(293,67%,75%)] shrink-0" />
