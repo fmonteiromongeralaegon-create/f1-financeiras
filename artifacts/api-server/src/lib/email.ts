@@ -1,14 +1,58 @@
+// Resend — via Replit Connectors (resend connector)
+// API key is fetched automatically from the connector; never hardcoded.
 import { Resend } from "resend";
 import { logger } from "./logger";
 
-const DEST_EMAIL = "flavios.monteiro@hotmail.com";
+// Destination for proposal notifications.
+// While the Resend account domain is unverified, emails can only go to
+// the account owner's address. Verify f1solucoesveiculogarantia.com.br
+// at resend.com/domains to unlock sending to any recipient.
+const DEST_EMAIL = process.env.PROPOSTA_DEST_EMAIL ?? "flavios.monteiro@hotmail.com";
 
 const BANK_LABELS: Record<string, string> = {
   "porto-bank": "Porto Bank",
   "banco-bv": "Banco BV",
   "c6-bank": "C6 Bank",
-  "creditas": "Creditas",
+  creditas: "Creditas",
 };
+
+let _connectionSettings: { api_key: string; from_email?: string } | null = null;
+
+async function getResendClient(): Promise<{ client: Resend; fromEmail: string }> {
+  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
+  const xReplitToken = process.env.REPL_IDENTITY
+    ? "repl " + process.env.REPL_IDENTITY
+    : process.env.WEB_REPL_RENEWAL
+    ? "depl " + process.env.WEB_REPL_RENEWAL
+    : null;
+
+  if (hostname && xReplitToken) {
+    try {
+      const res = await fetch(
+        `https://${hostname}/api/v2/connection?include_secrets=true&connector_names=resend`,
+        {
+          headers: {
+            Accept: "application/json",
+            "X-Replit-Token": xReplitToken,
+          },
+        }
+      );
+      const json = await res.json();
+      _connectionSettings = json.items?.[0]?.settings ?? null;
+    } catch {
+      _connectionSettings = null;
+    }
+  }
+
+  const apiKey = _connectionSettings?.api_key ?? process.env.RESEND_API_KEY;
+  if (!apiKey) throw new Error("Resend API key não disponível");
+
+  const fromEmail =
+    _connectionSettings?.from_email ??
+    "F1 Soluções Financeiras <propostas@f1solucoesveiculogarantia.com.br>";
+
+  return { client: new Resend(apiKey), fromEmail };
+}
 
 function formatValue(val: unknown): string {
   if (val === null || val === undefined || val === "") return "—";
@@ -52,18 +96,21 @@ export async function sendPropostaEmail(
   nome: string,
   dados: Record<string, unknown>
 ): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    logger.warn("RESEND_API_KEY não configurado — e-mail não será enviado.");
-    return;
-  }
-
   const bankLabel = BANK_LABELS[banco] ?? banco;
-  const resend = new Resend(apiKey);
 
   try {
-    const { error } = await resend.emails.send({
-      from: "F1 Soluções Financeiras <propostas@f1solucoesveiculogarantia.com.br>",
+    const { client, fromEmail } = await getResendClient();
+
+    // Use connector's from_email if set; otherwise fall back to Resend's shared
+    // onboarding domain (always allowed). Switch to the verified custom domain
+    // once f1solucoesveiculogarantia.com.br is added in the Resend dashboard.
+    const from =
+      fromEmail && fromEmail.includes("@") && !fromEmail.includes("gmail.com")
+        ? fromEmail
+        : "F1 Soluções Financeiras <onboarding@resend.dev>";
+
+    const { error } = await client.emails.send({
+      from,
       to: [DEST_EMAIL],
       subject: `Nova Proposta - ${bankLabel} - ${nome}`,
       html: buildHtml(banco, nome, dados),
