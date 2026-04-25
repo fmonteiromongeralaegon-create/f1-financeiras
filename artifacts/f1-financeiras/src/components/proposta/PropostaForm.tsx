@@ -479,6 +479,9 @@ export function PropostaForm({ banco, showBankFields = false, apiBase = "" }: Pr
           {showBankFields && (
             <>
               <SectionTitle>Dados Bancários</SectionTitle>
+              <div className="col-span-full rounded-lg border border-[hsl(268,63%,46%)]/30 bg-[hsl(268,63%,46%)]/5 px-4 py-3 text-sm text-[hsl(221,72%,14%)]">
+                Informe a conta bancária para <strong>recebimento do crédito</strong>. A conta deve ser de titularidade do <strong>proprietário do veículo</strong>.
+              </div>
               <FieldWrapper label="Banco" error={errors.bancoConta?.message}>
                 <Input {...register("bancoConta")} placeholder="Nome do banco" className={inputClass} />
               </FieldWrapper>
