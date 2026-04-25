@@ -137,6 +137,9 @@ export function SiteFooter() {
           <p className="text-xs text-white/35 pt-2">
             © {new Date().getFullYear()} {COMPANY.legalName}. Todos os direitos reservados.
           </p>
+          <p className="text-xs text-white/35">
+            Corretor de Seguros responsável: Flavio dos Santos Monteiro — Registro SUSEP nº 201014067.
+          </p>
         </div>
       </div>
     </footer>
