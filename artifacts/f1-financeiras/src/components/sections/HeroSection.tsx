@@ -81,6 +81,9 @@ export function HeroSection() {
                 <span>Carros, SUVs e utilitários com <strong className="text-white">até 19 anos</strong> de fabricação</span>
               </div>
             </div>
+            <p className="mt-3 text-[11px] text-white/45 leading-snug max-w-[65%] sm:max-w-sm">
+              Condições definidas pela instituição financeira parceira após análise de crédito e avaliação do veículo.
+            </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Button
