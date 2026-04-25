@@ -15,6 +15,10 @@ const TermosDeUso = lazy(() => import("@/pages/termos-de-uso"));
 const PoliticaDePrivacidade = lazy(() => import("@/pages/politica-de-privacidade"));
 const AvisoLegal = lazy(() => import("@/pages/aviso-legal"));
 const Obrigado = lazy(() => import("@/pages/obrigado"));
+const PropostaPortoBank = lazy(() => import("@/pages/proposta/porto-bank"));
+const PropostaBancoBv = lazy(() => import("@/pages/proposta/banco-bv"));
+const PropostaC6Bank = lazy(() => import("@/pages/proposta/c6-bank"));
+const PropostaCreditas = lazy(() => import("@/pages/proposta/creditas"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 const queryClient = new QueryClient();
@@ -33,6 +37,10 @@ function Router() {
         <Route path="/politica-de-privacidade" component={PoliticaDePrivacidade} />
         <Route path="/aviso-legal" component={AvisoLegal} />
         <Route path="/obrigado" component={Obrigado} />
+        <Route path="/proposta/porto-bank" component={PropostaPortoBank} />
+        <Route path="/proposta/banco-bv" component={PropostaBancoBv} />
+        <Route path="/proposta/c6-bank" component={PropostaC6Bank} />
+        <Route path="/proposta/creditas" component={PropostaCreditas} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

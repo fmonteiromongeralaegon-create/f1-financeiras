@@ -22,6 +22,32 @@ export const maskPlate = (value: string) => {
     .substring(0, 7);
 }
 
+export const maskCep = (value: string) =>
+  value.replace(/\D/g, "").replace(/(\d{5})(\d)/, "$1-$2").replace(/(-\d{3})\d+?$/, "$1");
+
+export const maskDate = (value: string) =>
+  value
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(\d)/, "$1/$2")
+    .replace(/(\d{2})(\d)/, "$1/$2")
+    .replace(/(\/\d{4})\d+?$/, "$1");
+
+export const maskCnpj = (value: string) =>
+  value
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1/$2")
+    .replace(/(\d{4})(\d)/, "$1-$2")
+    .replace(/(-\d{2})\d+?$/, "$1");
+
+export const maskCurrency = (value: string) => {
+  const digits = value.replace(/\D/g, "");
+  if (!digits) return "";
+  const num = parseInt(digits, 10) / 100;
+  return num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+};
+
 export const validateCpf = (cpf: string) => {
   const cleanCpf = cpf.replace(/\D/g, '');
   if (cleanCpf.length !== 11) return false;

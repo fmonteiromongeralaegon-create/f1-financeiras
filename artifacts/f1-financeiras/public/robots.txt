@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /obrigado
+Disallow: /proposta/
 
 Sitemap: https://www.f1solucoesveiculogarantia.com.br/sitemap.xml
