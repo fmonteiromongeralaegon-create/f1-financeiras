@@ -54,7 +54,8 @@ const schema = z.object({
   placaVeiculo: z.string().min(7, "Placa obrigatória"),
   marcaVeiculo: z.string().optional(),
   modeloVeiculo: z.string().optional(),
-  anoVeiculo: z.string().optional(),
+  anoFabricacao: z.string().optional(),
+  anoModelo: z.string().optional(),
   bancoConta: z.string().optional(),
   agencia: z.string().optional(),
   contaCorrente: z.string().optional(),
@@ -145,7 +146,8 @@ export function PropostaForm({ banco, showBankFields = false, apiBase = "" }: Pr
         const item = data[0];
         setValue("marcaVeiculo", item.brand ?? item.marca ?? "", { shouldValidate: true });
         setValue("modeloVeiculo", item.model ?? item.modelo ?? item.name ?? "", { shouldValidate: true });
-        setValue("anoVeiculo", String(item.modelYear ?? item.ano ?? ""), { shouldValidate: true });
+        setValue("anoFabricacao", String(item.year ?? item.anoFabricacao ?? item.ano ?? ""), { shouldValidate: true });
+        setValue("anoModelo", String(item.modelYear ?? item.anoModelo ?? ""), { shouldValidate: true });
       }
     } catch {
     } finally {
@@ -465,8 +467,12 @@ export function PropostaForm({ banco, showBankFields = false, apiBase = "" }: Pr
             </FieldWrapper>
           </div>
 
-          <FieldWrapper label="Ano do veículo" error={errors.anoVeiculo?.message}>
-            <Input {...register("anoVeiculo")} placeholder="Ex: 2022" maxLength={4} className={inputClass} />
+          <FieldWrapper label="Ano de fabricação" error={errors.anoFabricacao?.message}>
+            <Input {...register("anoFabricacao")} placeholder="Ex: 2010" maxLength={4} className={inputClass} />
+          </FieldWrapper>
+
+          <FieldWrapper label="Ano do modelo" error={errors.anoModelo?.message}>
+            <Input {...register("anoModelo")} placeholder="Ex: 2011" maxLength={4} className={inputClass} />
           </FieldWrapper>
 
           {/* ── Dados bancários (C6 Bank) ── */}
