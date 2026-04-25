@@ -101,7 +101,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 export function PropostaForm({ banco, showBankFields = false, apiBase = "" }: PropostaFormProps) {
   const [cepLoading, setCepLoading] = useState(false);
-  const [plateLoading, setPlateLoading] = useState(false);
   const [submitState, setSubmitState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -131,27 +130,6 @@ export function PropostaForm({ banco, showBankFields = false, apiBase = "" }: Pr
     } catch {
     } finally {
       setCepLoading(false);
-    }
-  }, [setValue]);
-
-  const lookupPlate = useCallback(async (plateRaw: string) => {
-    const plate = plateRaw.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
-    if (plate.length < 7) return;
-    setPlateLoading(true);
-    try {
-      const res = await fetch(`https://brasilapi.com.br/api/fipe/plates/v1/${plate}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      if (data && data.length > 0) {
-        const item = data[0];
-        setValue("marcaVeiculo", item.brand ?? item.marca ?? "", { shouldValidate: true });
-        setValue("modeloVeiculo", item.model ?? item.modelo ?? item.name ?? "", { shouldValidate: true });
-        setValue("anoFabricacao", String(item.year ?? item.anoFabricacao ?? item.ano ?? ""), { shouldValidate: true });
-        setValue("anoModelo", String(item.modelYear ?? item.anoModelo ?? ""), { shouldValidate: true });
-      }
-    } catch {
-    } finally {
-      setPlateLoading(false);
     }
   }, [setValue]);
 
@@ -441,20 +419,16 @@ export function PropostaForm({ banco, showBankFields = false, apiBase = "" }: Pr
           <SectionTitle>Dados do Veículo</SectionTitle>
 
           <FieldWrapper label="Placa do veículo" required error={errors.placaVeiculo?.message}>
-            <div className="relative">
-              <Input
-                {...register("placaVeiculo")}
-                placeholder="ABC1D23"
-                maxLength={7}
-                onChange={(e) => {
-                  const masked = maskPlate(e.target.value);
-                  setValue("placaVeiculo", masked, { shouldValidate: true });
-                  if (masked.length === 7) lookupPlate(masked);
-                }}
-                className={`${inputClass} uppercase`}
-              />
-              {plateLoading && <Loader2 className="absolute right-3 top-2.5 h-4 w-4 animate-spin text-[hsl(268,63%,46%)]" />}
-            </div>
+            <Input
+              {...register("placaVeiculo")}
+              placeholder="ABC1D23"
+              maxLength={7}
+              onChange={(e) => {
+                const masked = maskPlate(e.target.value);
+                setValue("placaVeiculo", masked, { shouldValidate: true });
+              }}
+              className={`${inputClass} uppercase`}
+            />
           </FieldWrapper>
 
           <FieldWrapper label="Marca do veículo" error={errors.marcaVeiculo?.message}>
