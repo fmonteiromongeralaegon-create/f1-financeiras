@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { maskCpf, maskPhone, maskPlate, validateCpf } from "@/lib/masks";
 import { useSubmitLead } from "@workspace/api-client-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { CheckCircle2, ChevronRight, AlertCircle, RefreshCw, MessageCircle } from "lucide-react";
 
 const leadFormSchema = z.object({
@@ -55,6 +55,7 @@ export function EligibilityQuiz() {
     incomeOk: null as boolean | null,
   });
 
+  const [, navigate] = useLocation();
   const submitLead = useSubmitLead();
 
   const form = useForm<z.infer<typeof leadFormSchema>>({
@@ -96,7 +97,7 @@ export function EligibilityQuiz() {
           source: "website",
         },
       },
-      { onSuccess: () => setStep(4) }
+      { onSuccess: () => navigate("/obrigado") }
     );
   };
 

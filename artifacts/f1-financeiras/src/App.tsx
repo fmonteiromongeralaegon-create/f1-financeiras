@@ -14,6 +14,7 @@ const Contato = lazy(() => import("@/pages/contato"));
 const TermosDeUso = lazy(() => import("@/pages/termos-de-uso"));
 const PoliticaDePrivacidade = lazy(() => import("@/pages/politica-de-privacidade"));
 const AvisoLegal = lazy(() => import("@/pages/aviso-legal"));
+const Obrigado = lazy(() => import("@/pages/obrigado"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/termos-de-uso" component={TermosDeUso} />
         <Route path="/politica-de-privacidade" component={PoliticaDePrivacidade} />
         <Route path="/aviso-legal" component={AvisoLegal} />
+        <Route path="/obrigado" component={Obrigado} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
