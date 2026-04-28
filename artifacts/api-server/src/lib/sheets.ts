@@ -12,6 +12,44 @@ const BANK_SHEET_NAMES: Record<string, string> = {
 
 const SPREADSHEET_ID = process.env.GOOGLE_SHEETS_ID;
 
+export async function appendLeadToSheet(
+  dados: Record<string, unknown>
+): Promise<void> {
+  if (!SPREADSHEET_ID) {
+    logger.warn("GOOGLE_SHEETS_ID não configurado — lead não será gravado no Sheets.");
+    return;
+  }
+
+  const row = [
+    new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
+    ...Object.values(dados).map((v) => (v == null ? "" : String(v))),
+  ];
+
+  try {
+    const connectors = new ReplitConnectors();
+    const range = encodeURIComponent(`Leads!A1`);
+    const response = await connectors.proxy(
+      "google-sheet",
+      `/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ values: [row] }),
+      }
+    );
+
+    if (!response.ok) {
+      const body = await response.text();
+      logger.error({ status: response.status, body }, "Falha ao gravar lead no Google Sheets");
+      return;
+    }
+
+    logger.info("Lead adicionado ao Google Sheets (aba Leads)");
+  } catch (err) {
+    logger.error({ err }, "Erro ao conectar ao Google Sheets para lead");
+  }
+}
+
 export async function appendPropostaToSheet(
   banco: string,
   dados: Record<string, unknown>

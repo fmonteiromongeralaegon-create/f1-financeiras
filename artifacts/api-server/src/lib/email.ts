@@ -91,6 +91,62 @@ function buildHtml(banco: string, nome: string, dados: Record<string, unknown>):
     </div>`;
 }
 
+export async function sendLeadEmail(
+  nome: string,
+  dados: Record<string, unknown>
+): Promise<void> {
+  try {
+    const { client, fromEmail } = await getResendClient();
+
+    const from =
+      fromEmail && fromEmail.includes("@") && !fromEmail.includes("gmail.com")
+        ? fromEmail
+        : "F1 Soluções Financeiras <onboarding@resend.dev>";
+
+    const rows = Object.entries(dados)
+      .map(
+        ([k, v]) =>
+          `<tr>
+            <td style="padding:7px 14px;border-bottom:1px solid #eee;color:#555;font-size:13px;white-space:nowrap;">${k}</td>
+            <td style="padding:7px 14px;border-bottom:1px solid #eee;font-weight:600;font-size:13px;">${formatValue(v)}</td>
+          </tr>`
+      )
+      .join("");
+
+    const html = `
+      <div style="font-family:sans-serif;max-width:700px;margin:auto;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+        <div style="background:#1a2a5e;padding:24px 32px;">
+          <h1 style="color:#fff;margin:0;font-size:20px;font-weight:700;">F1 Soluções Financeiras</h1>
+          <p style="color:#c084fc;margin:6px 0 0;font-size:14px;">Novo Lead — Formulário Principal</p>
+        </div>
+        <div style="background:#f9fafb;padding:24px 32px;">
+          <h2 style="color:#1a2a5e;margin:0 0 16px;font-size:16px;">Cliente: ${nome}</h2>
+          <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+            ${rows}
+          </table>
+          <p style="color:#9ca3af;font-size:11px;margin-top:16px;">
+            Recebido em ${new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}
+          </p>
+        </div>
+      </div>`;
+
+    const { error } = await client.emails.send({
+      from,
+      to: [DEST_EMAIL],
+      subject: `Novo Lead - ${nome}`,
+      html,
+    });
+
+    if (error) {
+      logger.error({ error, nome }, "Resend retornou erro ao enviar lead");
+    } else {
+      logger.info({ nome }, "E-mail de lead enviado via Resend");
+    }
+  } catch (err) {
+    logger.error({ err, nome }, "Falha ao enviar e-mail de lead via Resend");
+  }
+}
+
 export async function sendPropostaEmail(
   banco: string,
   nome: string,

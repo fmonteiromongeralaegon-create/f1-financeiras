@@ -2,6 +2,8 @@ import { Router, type IRouter } from "express";
 import { db, leadsTable, contactsTable } from "@workspace/db";
 import { SubmitLeadBody, SubmitContactBody, GetLeadsStatsResponse } from "@workspace/api-zod";
 import { sql } from "drizzle-orm";
+import { sendLeadEmail } from "../lib/email";
+import { appendLeadToSheet } from "../lib/sheets";
 
 const router: IRouter = Router();
 
@@ -75,6 +77,24 @@ router.post("/leads", async (req, res): Promise<void> => {
   }).returning({ id: leadsTable.id });
 
   req.log.info({ leadId: lead.id }, "Lead submitted");
+
+  const dadosFormatados: Record<string, unknown> = {
+    "Nome": name,
+    "E-mail": email,
+    "WhatsApp": phone,
+    "CPF": cpf ?? "",
+    "Placa do Veículo": licensePlate ?? "",
+    "Veículo quitado": vehiclePaid === true ? "Sim" : vehiclePaid === false ? "Não" : "",
+    "Veículo em nome próprio": vehicleInOwnerName === true ? "Sim" : vehicleInOwnerName === false ? "Não" : "",
+    "Possui renda": hasIncome === true ? "Sim" : hasIncome === false ? "Não" : "",
+    "Origem": source ?? "home",
+  };
+
+  await Promise.allSettled([
+    sendLeadEmail(name, dadosFormatados),
+    appendLeadToSheet(dadosFormatados),
+  ]);
+
   res.status(201).json({ id: lead.id, message: "Solicitação recebida com sucesso! Entraremos em contato em breve." });
 });
 
