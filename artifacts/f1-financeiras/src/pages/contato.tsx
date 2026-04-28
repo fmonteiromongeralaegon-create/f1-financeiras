@@ -4,7 +4,6 @@ import * as z from "zod";
 import { useSubmitContact } from "@workspace/api-client-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -276,7 +275,6 @@ export default function Contato() {
         </section>
       </main>
       <SiteFooter />
-      <WhatsAppButton />
     </div>
   );
 }

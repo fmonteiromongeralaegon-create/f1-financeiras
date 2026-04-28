@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { PartnersTable } from "@/components/sections/PartnersTable";
 import { EligibilityQuiz } from "@/components/sections/EligibilityQuiz";
 
@@ -27,7 +26,6 @@ export default function Parceiros() {
         <EligibilityQuiz />
       </main>
       <SiteFooter />
-      <WhatsAppButton />
     </div>
   );
 }

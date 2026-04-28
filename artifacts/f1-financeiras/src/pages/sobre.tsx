@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { COMPANY } from "@/lib/company";
 
 export default function Sobre() {
@@ -84,7 +83,6 @@ export default function Sobre() {
         </section>
       </main>
       <SiteFooter />
-      <WhatsAppButton />
     </div>
   );
 }

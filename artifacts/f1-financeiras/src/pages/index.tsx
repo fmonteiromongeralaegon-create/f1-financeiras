@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ComplianceBar } from "@/components/layout/ComplianceBar";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { EligibilityQuiz } from "@/components/sections/EligibilityQuiz";
 
@@ -31,7 +30,6 @@ export default function Home() {
         </Suspense>
       </main>
       <SiteFooter />
-      <WhatsAppButton />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 export default function AvisoLegal() {
   return (
@@ -52,7 +51,6 @@ export default function AvisoLegal() {
         </div>
       </main>
       <SiteFooter />
-      <WhatsAppButton />
     </div>
   );
 }

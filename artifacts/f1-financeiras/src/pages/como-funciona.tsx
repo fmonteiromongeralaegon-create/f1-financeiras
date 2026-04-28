@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { EligibilityQuiz } from "@/components/sections/EligibilityQuiz";
@@ -28,7 +27,6 @@ export default function ComoFunciona() {
         <FaqSection fullPage />
       </main>
       <SiteFooter />
-      <WhatsAppButton />
     </div>
   );
 }

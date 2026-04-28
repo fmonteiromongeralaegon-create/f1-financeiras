@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 export default function PoliticaDePrivacidade() {
   return (
@@ -70,7 +69,6 @@ export default function PoliticaDePrivacidade() {
         </div>
       </main>
       <SiteFooter />
-      <WhatsAppButton />
     </div>
   );
 }
