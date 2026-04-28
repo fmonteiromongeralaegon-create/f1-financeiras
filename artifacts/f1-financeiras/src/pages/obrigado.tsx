@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, MessageCircle, Clock, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Clock, ShieldCheck } from "lucide-react";
 import { Link } from "wouter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -47,16 +47,6 @@ export default function Obrigado() {
                 Sem custo para você
               </div>
             </div>
-
-            <a
-              href="https://wa.me/5516988602882"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-4 px-6 rounded-xl transition-colors text-base mb-4"
-            >
-              <MessageCircle className="h-5 w-5" />
-              Falar agora pelo WhatsApp
-            </a>
 
             <Link
               href="/"
