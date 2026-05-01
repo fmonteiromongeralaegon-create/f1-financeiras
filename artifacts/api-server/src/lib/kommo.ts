@@ -52,9 +52,6 @@ export async function createKommoLead(params: {
           ...(params.phone
             ? [{ field_code: "PHONE", values: [{ value: params.phone, enum_code: "MOB" }] }]
             : []),
-          ...(params.cpf
-            ? [{ field_code: "IM", values: [{ value: `CPF: ${params.cpf}` }] }]
-            : []),
         ],
       },
     ];
@@ -65,9 +62,17 @@ export async function createKommoLead(params: {
 
     const contactId = contactRes._embedded?.contacts?.[0]?.id;
 
+    const leadName = [
+      `Lead - ${params.name}`,
+      params.licensePlate ? `Placa: ${params.licensePlate}` : null,
+      params.cpf ? `CPF: ${params.cpf}` : null,
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
     const leadPayload = [
       {
-        name: `Lead - ${params.name}${params.licensePlate ? ` (${params.licensePlate})` : ""}`,
+        name: leadName,
         ...(contactId ? { _embedded: { contacts: [{ id: contactId }] } } : {}),
       },
     ];

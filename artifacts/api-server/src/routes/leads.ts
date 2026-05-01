@@ -94,6 +94,7 @@ router.post("/leads", async (req, res): Promise<void> => {
   await Promise.allSettled([
     sendLeadEmail(name, dadosFormatados),
     appendLeadToSheet(dadosFormatados),
+    createKommoLead({ name, email, phone, cpf, licensePlate }),
   ]);
 
   res.status(201).json({ id: lead.id, message: "Solicitação recebida com sucesso! Entraremos em contato em breve." });
