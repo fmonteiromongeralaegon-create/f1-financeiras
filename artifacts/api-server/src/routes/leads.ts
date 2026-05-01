@@ -4,6 +4,7 @@ import { SubmitLeadBody, SubmitContactBody, GetLeadsStatsResponse } from "@works
 import { sql } from "drizzle-orm";
 import { sendLeadEmail } from "../lib/email";
 import { appendLeadToSheet } from "../lib/sheets";
+import { createKommoLead } from "../lib/kommo";
 
 const router: IRouter = Router();
 

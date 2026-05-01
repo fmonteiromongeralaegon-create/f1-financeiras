@@ -47,3 +47,4 @@ channel = "stable-25_05"
 
 [userenv.shared]
 GOOGLE_SHEETS_ID = "12Tm7W_C2R2ZYUkJv7XcaaLfN-i7HoG4TQUmaKUrnuMY"
+KOMMO_SUBDOMAIN = "flaviosmonteiros"
